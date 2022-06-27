@@ -1,57 +1,41 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback} from 'react';
-import {ActivityIndicator, FlatList, RefreshControl, Text, useWindowDimensions, View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import { FlatList, Text } from 'react-native';
 import LoadingIndicator from '../components/LoadingIndicator';
-import {scale, verticalScale} from 'react-native-size-matters/extend';
-import {useTrendingMoviesQuery} from '../services/moviesApi';
-import MovieListItem from '../components/MovieListItem';
+import { scale } from 'react-native-size-matters/extend';
+import { Movie, Movies, useTrendingMoviesQuery } from '../services/moviesApi';
+import MovieListItem from '../components/Homepage/MovieListItem';
 import styled from 'styled-components';
+import { NavigationProps } from '../../App';
 
-export default function Homepage() {
-  const [refreshing, setRefreshing] = React.useState<boolean>(false);
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-  }, []);
+const Homepage: React.FC<NavigationProps<'Homepage'>> = () => {
+  const { data: moviesData, isLoading, isError } = useTrendingMoviesQuery();
 
-  const {data, isLoading, isError, isSuccess} = useTrendingMoviesQuery();
-  const Props = {
-    data,
-    refreshing,
-    onRefresh,
-  };
   if (isLoading) {
     return <LoadingIndicator />;
   }
   if (isError) {
-    return <Text style={{color: 'red'}}>error</Text>;
+    return <Text style={{ color: 'red' }}>error</Text>;
   }
 
-  return <VerticalFlatlist {...Props} />;
-}
+  return <VerticalFlatlist moviesData={moviesData} />;
+};
+
+export default Homepage;
 
 interface VerticalFlatlistProps {
-  data: {
-    pageParams: [];
-    pages: [];
-  };
-  refreshing: boolean;
-  onRefresh: () => void;
+  moviesData: Movies | undefined;
 }
 
-export interface UnsplashItem {
-  id: string;
-  name: string;
-}
-
-const VerticalFlatlist: React.FC<VerticalFlatlistProps> = ({data, refreshing, onRefresh}) => {
+const VerticalFlatlist: React.FC<VerticalFlatlistProps> = ({ moviesData }) => {
   const navigation = useNavigation();
-  const listData = data.results;
+  const listData = moviesData?.results;
 
-  const goMovie = item => {
-    navigation.navigate('Movie', {data: item});
+  const goMovie = (item: Movie): void => {
+    navigation.navigate('Movie' as never, { data: item } as never);
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }: { item: Movie }) => {
     return <MovieListItem item={item} onPressFunc={() => goMovie(item)} />;
   };
 
@@ -61,23 +45,17 @@ const VerticalFlatlist: React.FC<VerticalFlatlistProps> = ({data, refreshing, on
     windowSize: 25,
     keyExtractor: useCallback((item, index) => index.toString(), []),
   };
-  // const loadMoreMeetings = () => {
-  //   if (!hasNextPage) return null;
-  //   return fetchNextPage();
-  // };
 
   return (
     <Container>
       <FlatList
         data={listData}
         bounces={false}
+        showsVerticalScrollIndicator={false}
         renderItem={renderItem}
-        // onEndReached={loadMoreMeetings}
         {...flatListOptimizationProps}
         onEndReachedThreshold={2}
-        // ListFooterComponent={hasNextPage ? <ActivityIndicator size="large" color="#00ff00" /> : null}
         numColumns={3}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
     </Container>
   );

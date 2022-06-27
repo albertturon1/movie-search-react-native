@@ -1,6 +1,6 @@
 //Zbiór kolorów wykorzysytwanych w aplikacji
 const colors = {
-    primaryWhite: 'rgba(255,255,255,0.9)',
+    primaryWhite: 'rgba(255,255,255,1)',
     secondaryWhite: 'rgba(255,255,255,0.8)',
     tertiaryWhite: 'rgba(255,255,255,0.7)',
     green: '#378AF0',

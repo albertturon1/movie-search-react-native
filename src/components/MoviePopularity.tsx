@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
 import { scale, verticalScale } from 'react-native-size-matters/extend';
 import colors from '../theme/colors';
 import { fsize, ftype } from '../theme/fonts';
 import styled from 'styled-components';
 
-export default function MoviePopularity({voteAverage, voteCount}) {
+interface Props{
+    voteAverage: number;
+    voteCount: number;
+}
+
+const MoviePopularity: React.FC<Props> = ({voteAverage, voteCount}) => {
   const starIconSource = require('../../assets/icons/star.png');
   const roundedVoteAverage = voteAverage.toFixed(2);
   const numberOfVotesCounter = voteCount > 1 ? 'votes' : 'vote';
@@ -17,6 +23,8 @@ export default function MoviePopularity({voteAverage, voteCount}) {
     </Container>
   );
 }
+
+export default MoviePopularity;
 
 //Popularity
 const Container = styled.View`

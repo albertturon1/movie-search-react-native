@@ -1,21 +1,40 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import React from 'react';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import colors from './src/theme/colors';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { createNativeStackNavigator, NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/core';
 import Search from './src/screens/Search';
 import Movie from './src/screens/Movie';
 import Homepage from './src/screens/Homepage';
-import {Pressable, Text} from 'react-native';
 import SearchButton from './src/components/Homepage/SearchButton';
-import {Provider} from 'react-redux';
-import {store} from './store';
-import {ftype} from './src/theme/fonts';
-import {configureFonts, DefaultTheme as DefaultThemePaper, Provider as PaperProvider} from 'react-native-paper';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { Movie as MovieInterface } from './src/services/moviesApi';
+import { Provider as PaperProvider } from 'react-native-paper';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App = () => {
+export type RootStackParamList = {
+  Homepage: undefined;
+  Search: undefined;
+  Movie: {
+    data: MovieInterface;
+  };
+};
+
+export type ScreenNavigationProp<T extends keyof RootStackParamList> = NativeStackNavigationProp<RootStackParamList, T>;
+
+export type ScreenRouteProp<T extends keyof RootStackParamList> = RouteProp<RootStackParamList, T>;
+
+export type NavigationProps<T extends keyof RootStackParamList> = {
+  route: ScreenRouteProp<T>;
+  navigation: ScreenNavigationProp<T>;
+};
+
+export type SearchScreenProps = NativeStackScreenProps<RootStackParamList, 'Search'>;
+
+const App: React.FC<RootStackParamList> = () => {
   const navTheme = {
     ...DefaultTheme,
     colors: {
@@ -31,25 +50,10 @@ const App = () => {
     },
   };
 
-  const theme = {
-    ...DefaultThemePaper,
-    // Specify custom property
-    myOwnProperty: true,
-    // Specify custom property in nested object
-    colors: {
-      primaryWhite: 'rgba(255,255,255,0.9)',
-      secondaryWhite: 'rgba(255,255,255,0.8)',
-      tertiaryWhite: 'rgba(255,255,255,0.7)',
-      primaryBlack: '#000',
-      secondaryBlack: '#161618',
-      tertiaryBlack: '#212124',
-    },
-  };
-
   return (
     <Provider store={store}>
       <NavigationContainer theme={navTheme}>
-        <PaperProvider theme={theme}>
+        <PaperProvider>
           <SafeAreaProvider>
             <Stack.Navigator>
               <Stack.Screen name="Homepage" component={Homepage} {...HomepageProps} />
@@ -57,7 +61,7 @@ const App = () => {
               <Stack.Screen
                 name="Movie"
                 component={Movie}
-                options={{headerTransparent: true, animation: 'slide_from_right', headerTintColor: colors.primaryWhite, title: ''}}
+                options={{ headerTransparent: true, animation: 'slide_from_right', headerTintColor: colors.primaryWhite, title: '' }}
               />
             </Stack.Navigator>
           </SafeAreaProvider>

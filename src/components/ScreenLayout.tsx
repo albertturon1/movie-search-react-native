@@ -1,9 +1,9 @@
-import React from 'react'
-import { scale, verticalScale } from 'react-native-size-matters/extend';
+import React, { ReactNode } from 'react'
+import { scale } from 'react-native-size-matters/extend';
 import styled from 'styled-components';
 
 
-export default function ScreenLayout({ children }) {
+export default function ScreenLayout({ children }: { children: ReactNode}) {
   return (
     <Container>
         {children}
