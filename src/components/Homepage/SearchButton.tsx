@@ -8,7 +8,7 @@ const SearchButton: React.FC = () => {
   const navigation = useNavigation();
   const onPress = () => navigation.navigate('Search');
   return (
-    <Pressable style={{width: 44, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center'}} onPress={onPress}>
+    <Pressable style={{width: 44, justifyContent: 'center', alignItems: 'center'}} onPress={onPress}>
       <Container>
         <Icon source={require('../../../assets/icons/searchActive.png')} resizeMode="contain" />
       </Container>

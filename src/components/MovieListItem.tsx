@@ -12,11 +12,12 @@ interface Props {
   onPressFunc?: () => void;
 }
 const MovieListItem: React.FC<Props> = ({item, onPressFunc}) => {
+
   return (
     <View style={{flex: 1}}>
       <Pressable onPress={onPressFunc} style={{flex: 1}}>
         <Container>
-          {/* <Thumbnail source={{uri: item.urls.thumb}}/> */}
+          <Thumbnail source={{uri: `https://image.tmdb.org/t/p/w300/${item.backdrop_path}`}}/>
         </Container>
       </Pressable>
     </View>

@@ -14,5 +14,5 @@ export default function ScreenLayout({ children }) {
 const Container = styled.View`
     width: 100%;
     height: 100%;
-    padding: ${verticalScale(0)}px ${scale(10)}px ${verticalScale(15)}px ${scale(10)}px;
+    padding: 0 ${scale(15)}px;
 `

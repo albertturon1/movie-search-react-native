@@ -6,7 +6,7 @@ const colors = {
     green: '#378AF0',
     primaryBlack: '#000', 
     secondaryBlack: '#161618',
-    tertiaryBlack: '#212124',
+    tertiaryBlack: '#303030',
     grey: '#303030',
     join_red: '#F41010',
     thin_grey_line: 'rgba(235,235,245,0.25)',

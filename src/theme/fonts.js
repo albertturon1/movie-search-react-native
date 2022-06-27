@@ -29,7 +29,6 @@ export const fsize = {
 export const ftype = {
     regular: 'Roboto-Regular',
     medium: 'Roboto-Medium',
-    semibold: 'Roboto-SemiBold',
     bold: 'Roboto-Bold'
 };
 

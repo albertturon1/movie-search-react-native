@@ -21,6 +21,8 @@ target 'books' do
 
   pod 'RNSharedElement', :path => '../node_modules/react-native-shared-element'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'booksTests' do
     inherit! :complete
     # Pods for testing

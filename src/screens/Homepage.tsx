@@ -14,7 +14,6 @@ export default function Homepage() {
   }, []);
 
   const {data, isLoading, isError, isSuccess} = useTrendingMoviesQuery();
-  console.log(data);
   const Props = {
     data,
     refreshing,
@@ -50,15 +49,14 @@ export interface UnsplashItem {
 
 const VerticalFlatlist: React.FC<VerticalFlatlistProps> = ({data, refreshing, onRefresh}) => {
   const navigation = useNavigation();
-  const {width} = useWindowDimensions();
-  const listData = data.results
+  const listData = data.results;
 
-  const goPhoto = item => {
+  const goMovie = item => {
     navigation.navigate('Movie', {data: item});
   };
 
   const renderItem = ({item}) => {
-    return <MovieListItem item={item} onPressFunc={() => goPhoto(item)} />;
+    return <MovieListItem item={item} onPressFunc={() => goMovie(item)} />;
   };
 
   const flatListOptimizationProps = {
