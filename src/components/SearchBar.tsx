@@ -5,8 +5,15 @@ import colors from '../theme/colors';
 import { fsize, ftype } from '../theme/fonts';
 import { Pressable } from 'react-native';
 
-export default function SearchBar({ value = '', onChangeText, placeholder = 'Wyszukaj spotkanie lub osobę', autoFocus = false}) {
-  const clearIcon = require('../../assets/icons/searchBarClear.png')
+interface Props{
+  value: string;
+  onChangeText: () => void;
+  placeholder? : string;
+  autoFocus: boolean;
+}
+
+const SearchBar:React.FC<Props> = ({ value = '', onChangeText, placeholder = 'Search for a movie', autoFocus = false}) => {
+  const clearIcon = require('../../assets/icons/clearInput.png')
   const clearInput = () => onChangeText('');
   return (
     <Container>
@@ -18,7 +25,7 @@ export default function SearchBar({ value = '', onChangeText, placeholder = 'Wys
           value={value}
           autoFocus={autoFocus}
           onChangeText={onChangeText}
-          placeholder={placeholder} placeholderTextColor={colors.tertiaryWhite} underlineColorAndroid="transparent"
+          placeholder={placeholder} placeholderTextColor={colors.tertiaryBlack} underlineColorAndroid="transparent"
         />
       </Wrapper>
       {value.length > 0 ?
@@ -31,6 +38,8 @@ export default function SearchBar({ value = '', onChangeText, placeholder = 'Wys
     </Container >
   );
 }
+
+export default SearchBar;
 
 const Container = styled.View`
   width: 100%;
@@ -83,4 +92,5 @@ const ClearIconContainer = styled.View`
 const ClearIcon = styled.Image`
   width: ${scale(16)}px;
   height: ${scale(16)}px;
+  margin-bottom: ${verticalScale(7)}px;
 `

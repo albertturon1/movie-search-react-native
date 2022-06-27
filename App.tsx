@@ -11,7 +11,7 @@ import SearchButton from './src/components/Homepage/SearchButton';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {ftype} from './src/theme/fonts';
-import { configureFonts, DefaultTheme as DefaultThemePaper, Provider as PaperProvider } from 'react-native-paper';
+import {configureFonts, DefaultTheme as DefaultThemePaper, Provider as PaperProvider} from 'react-native-paper';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,29 +28,8 @@ const App = () => {
     options: {
       title: 'Trending Movies',
       headerRight: () => <SearchButton />,
-      headerTitleStyle: {
-        fontFamily: ftype.medium,
-      },
     },
   };
-
-  const fontConfig = {
-    android: {
-      regular: {
-        fontFamily: 'Roboto-Regular',
-        fontWeight: 'normal',
-      },
-      medium: {
-        fontFamily: 'Roboto-Medium',
-        fontWeight: 'normal',
-      },
-      bold: {
-        fontFamily: 'Roboto-Bold',
-        fontWeight: 'normal',
-      },
-    }
-  };
-
 
   const theme = {
     ...DefaultThemePaper,
@@ -65,20 +44,21 @@ const App = () => {
       secondaryBlack: '#161618',
       tertiaryBlack: '#212124',
     },
-    fonts: configureFonts(fontConfig),
   };
-
-
 
   return (
     <Provider store={store}>
       <NavigationContainer theme={navTheme}>
         <PaperProvider theme={theme}>
           <SafeAreaProvider>
-            <Stack.Navigator screenOptions={{}}>
+            <Stack.Navigator>
               <Stack.Screen name="Homepage" component={Homepage} {...HomepageProps} />
               <Stack.Screen name="Search" component={Search} />
-              <Stack.Screen name="Movie" component={Movie} options={{headerShown: false}} />
+              <Stack.Screen
+                name="Movie"
+                component={Movie}
+                options={{headerTransparent: true, animation: 'slide_from_right', headerTintColor: colors.primaryWhite, title: ''}}
+              />
             </Stack.Navigator>
           </SafeAreaProvider>
         </PaperProvider>

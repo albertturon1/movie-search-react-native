@@ -2,10 +2,10 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {ActivityIndicator, FlatList, RefreshControl, Text, useWindowDimensions, View} from 'react-native';
 import LoadingIndicator from '../components/LoadingIndicator';
-import ScreenLayout from '../components/ScreenLayout';
-import {verticalScale} from 'react-native-size-matters/extend';
+import {scale, verticalScale} from 'react-native-size-matters/extend';
 import {useTrendingMoviesQuery} from '../services/moviesApi';
 import MovieListItem from '../components/MovieListItem';
+import styled from 'styled-components';
 
 export default function Homepage() {
   const [refreshing, setRefreshing] = React.useState<boolean>(false);
@@ -26,11 +26,7 @@ export default function Homepage() {
     return <Text style={{color: 'red'}}>error</Text>;
   }
 
-  return (
-    <ScreenLayout>
-      <VerticalFlatlist {...Props} />
-    </ScreenLayout>
-  );
+  return <VerticalFlatlist {...Props} />;
 }
 
 interface VerticalFlatlistProps {
@@ -71,17 +67,24 @@ const VerticalFlatlist: React.FC<VerticalFlatlistProps> = ({data, refreshing, on
   // };
 
   return (
-    <FlatList
-      data={listData}
-      bounces={false}
-      renderItem={renderItem}
-      // onEndReached={loadMoreMeetings}
-      ListHeaderComponent={<View style={{height: verticalScale(15)}} />}
-      {...flatListOptimizationProps}
-      onEndReachedThreshold={2}
-      // ListFooterComponent={hasNextPage ? <ActivityIndicator size="large" color="#00ff00" /> : null}
-      numColumns={3}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-    />
+    <Container>
+      <FlatList
+        data={listData}
+        bounces={false}
+        renderItem={renderItem}
+        // onEndReached={loadMoreMeetings}
+        {...flatListOptimizationProps}
+        onEndReachedThreshold={2}
+        // ListFooterComponent={hasNextPage ? <ActivityIndicator size="large" color="#00ff00" /> : null}
+        numColumns={3}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      />
+    </Container>
   );
 };
+
+const Container = styled.View`
+  width: 100%;
+  height: 100%;
+  padding: 0 ${scale(5)}px;
+`;
