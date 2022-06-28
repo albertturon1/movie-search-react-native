@@ -15,6 +15,7 @@ import { NavigationProps } from '../../App';
 const Movie: React.FC<NavigationProps<'Movie'>> = ({ route }) => {
   const { data } = route.params;
   const { data: genresData } = useGenresQuery();
+  console.log(data);
 
   const movieGenres = genresData?.genres.filter((genre) => data.genre_ids.some((g2) => genre.id == g2)); //filtering genres that are binded to selected movie
   const formattedReleaseDate = data.release_date ? format(new Date(data.release_date), 'mediumDate') : null;
@@ -36,7 +37,10 @@ const Movie: React.FC<NavigationProps<'Movie'>> = ({ route }) => {
           <TitleText>{data.title}</TitleText>
           <SectionLayout>
             <MoviePopularity voteCount={data.vote_count} voteAverage={data.vote_average} />
-            {data.release_date ? <ReleaseDateText>Release date: {formattedReleaseDate}</ReleaseDateText> : null}
+            <ReleaseAndLanguageWrapper>
+              {data.release_date ? <ReleaseDateText>Release date: {formattedReleaseDate}</ReleaseDateText> : null}
+              {data.original_language ? <ReleaseDateText>Original language: {data.original_language.toUpperCase()}</ReleaseDateText> : null}
+            </ReleaseAndLanguageWrapper>
             {movieGenres ? <Genres genres={movieGenres} /> : null}
           </SectionLayout>
           {data.overview ? <DescriptionText>{data.overview}</DescriptionText> : null}
@@ -83,11 +87,15 @@ const DescriptionText = styled.Text`
   flex-shrink: 1;
 `;
 
-//ReleaseDate
+//ReleaseAndLanguage
+const ReleaseAndLanguageWrapper = styled.View`
+  margin-top: ${verticalScale(4)}px;
+  margin-bottom: ${verticalScale(5)}px;
+`;
+
 const ReleaseDateText = styled.Text`
   font-size: ${fsize.s15}px;
   font-family: ${ftype.regular};
   color: ${colors.secondaryBlack};
-  margin-top: ${scale(4)}px;
-  margin-bottom: ${verticalScale(10)}px;
+  margin-bottom: ${verticalScale(2)}px;
 `;

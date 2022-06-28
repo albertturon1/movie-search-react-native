@@ -1,4 +1,4 @@
-import { Image, ScrollView, Pressable, View } from 'react-native';
+import { Image, ScrollView, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import colors from '../theme/colors';
@@ -20,7 +20,7 @@ const Search: React.FC<NavigationProps<'Search'>> = ({ navigation, route }: Sear
   const { data: searchData } = useSearchMoviesQuery(queryValue);
 
   React.useLayoutEffect(() => {
-    navigation.setOptions({ header: () => <HeaderBar onChangeText={onChangeText} value={queryValue} autoFocus placeholder='Search a movie'/> });
+    navigation.setOptions({ header: () => <HeaderBar onChangeText={onChangeText} value={queryValue} autoFocus placeholder="Search a movie" /> });
   }, [navigation, route, value]);
 
   return (
@@ -36,8 +36,6 @@ const Search: React.FC<NavigationProps<'Search'>> = ({ navigation, route }: Sear
   );
 };
 export default Search;
-
-
 
 const SearchResults = (props: Movies): JSX.Element => {
   if (props.results.length === 0) return <EmptyListText>We couldn&apos;t find anything for you</EmptyListText>;
@@ -70,8 +68,6 @@ const MovieSearchItem: React.FC<Movie> = (props) => {
     </Pressable>
   );
 };
-
-
 
 const MovieSearchItemContainer = styled.View`
   width: 100%;

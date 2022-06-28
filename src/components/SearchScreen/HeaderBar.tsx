@@ -1,10 +1,11 @@
-import { Image, ScrollView, Pressable, View } from 'react-native';
-import React, { useState } from 'react';
+import { View } from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Searchbar } from 'react-native-paper';
 import colors from '../../theme/colors';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
+import { scale } from 'react-native-size-matters/extend';
 
 interface Props {
   value: string;
@@ -15,15 +16,15 @@ interface Props {
 
 const HeaderBar: React.FC<Props> = ({ value, onChangeText, placeholder, autoFocus }) => {
   const navigation = useNavigation();
-    const goBack = () => navigation.navigate('Homepage' as never);
+  const goBack = () => navigation.navigate('Homepage' as never);
 
   return (
     <View style={{ flexDirection: 'row' }}>
       <BackArrowWrapper>
-        <Icon.Button name="arrowleft" backgroundColor="#fff" color="#000" onPress={goBack}/>
+        <Icon.Button name="arrowleft" backgroundColor="#fff" color="#000" onPress={goBack} />
       </BackArrowWrapper>
       <SearchBarWrapper>
-        <Searchbar value={value} onChangeText={onChangeText} autoFocus={autoFocus} placeholder={placeholder}/>
+        <Searchbar value={value} onChangeText={onChangeText} autoFocus={autoFocus} placeholder={placeholder} />
       </SearchBarWrapper>
     </View>
   );
@@ -32,6 +33,7 @@ const HeaderBar: React.FC<Props> = ({ value, onChangeText, placeholder, autoFocu
 export default HeaderBar;
 
 const BackArrowWrapper = styled.View`
+  padding-left: ${scale(7)}px;
   justify-content: center;
   align-items: center;
 `;

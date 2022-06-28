@@ -1,12 +1,11 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_KEY = '8691ee76804d7a69c4236d34fea042b3';
 
-interface genre{
+interface genre {
   id: number;
   name: string;
 }
-
 
 export interface Movie {
   adult: boolean;
@@ -33,14 +32,14 @@ export interface Movies {
   total_results: number;
 }
 
-export interface Genres{
-  genres: genre[]
+export interface Genres {
+  genres: genre[];
 }
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
-  baseQuery: fetchBaseQuery({baseUrl: 'https://api.themoviedb.org/3/'}),
-  endpoints: builder => ({
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/' }),
+  endpoints: (builder) => ({
     searchMovies: builder.query<Movies, string>({
       query: (name: string) => `/search/movie?api_key=${API_KEY}&query=${name}&page=1`,
     }),
@@ -53,4 +52,4 @@ export const moviesApi = createApi({
   }),
 });
 
-export const {useSearchMoviesQuery, useTrendingMoviesQuery, useGenresQuery} = moviesApi;
+export const { useSearchMoviesQuery, useTrendingMoviesQuery, useGenresQuery } = moviesApi;
