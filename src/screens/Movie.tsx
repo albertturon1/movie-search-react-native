@@ -15,7 +15,6 @@ import { NavigationProps } from '../../App';
 const Movie: React.FC<NavigationProps<'Movie'>> = ({ route }) => {
   const { data } = route.params;
   const { data: genresData } = useGenresQuery();
-  console.log(data);
 
   const movieGenres = genresData?.genres.filter((genre) => data.genre_ids.some((g2) => genre.id == g2)); //filtering genres that are binded to selected movie
   const formattedReleaseDate = data.release_date ? format(new Date(data.release_date), 'mediumDate') : null;

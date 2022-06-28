@@ -7,7 +7,6 @@ import { Genres as GenresInterface } from '../../services/moviesApi';
 
 
 const Genres: React.FC<GenresInterface> = ({genres}): ReactElement => {
-  console.log(genres)
   return (
     <Container>
       {genres.map((genre, index) => {
