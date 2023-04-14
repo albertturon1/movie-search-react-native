@@ -9,10 +9,10 @@ import { Movie, Movies, useSearchMoviesQuery } from '../services/moviesApi';
 import ScreenLayout from '../components/ScreenLayout';
 import MoviePopularity from '../components/MoviePopularity';
 import { useNavigation } from '@react-navigation/native';
-import { NavigationProps, SearchScreenProps } from '../../App';
 import HeaderBar from '../components/SearchScreen/HeaderBar';
+import { RootStackProps } from '../navigation/INavigation';
 
-const Search: React.FC<NavigationProps<'Search'>> = ({ navigation, route }: SearchScreenProps) => {
+const Search = ({ navigation, route }: RootStackProps<'Search'>) => {
   const [value, setValue] = useState('');
   const onChangeText = (value: string): void => setValue(value);
   const queryValue = value.trim().split(' ').join('+');
@@ -37,7 +37,7 @@ const Search: React.FC<NavigationProps<'Search'>> = ({ navigation, route }: Sear
 };
 export default Search;
 
-const SearchResults = (props: Movies): JSX.Element => {
+const SearchResults = (props: Movies) => {
   if (props.results.length === 0) return <EmptyListText>We couldn&apos;t find anything for you</EmptyListText>;
   return (
     <>
@@ -48,7 +48,7 @@ const SearchResults = (props: Movies): JSX.Element => {
   );
 };
 
-const MovieSearchItem: React.FC<Movie> = (props) => {
+const MovieSearchItem = (props: Movie) => {
   const navigation = useNavigation();
   const goToMovie = (props: Movie) => navigation.navigate('Movie' as never, { data: props } as never);
 

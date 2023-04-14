@@ -1,8 +1,8 @@
 import React from 'react';
 import { fsize, ftype } from '../theme/fonts';
 import styled from 'styled-components';
-import { scale, verticalScale } from 'react-native-size-matters/extend';
-import { ScrollView, View } from 'react-native';
+import { verticalScale } from 'react-native-size-matters/extend';
+import { ScrollView } from 'react-native';
 import colors from '../theme/colors';
 import ScreenLayout from '../components/ScreenLayout';
 import { format } from 'fecha';
@@ -10,9 +10,9 @@ import { useGenresQuery } from '../services/moviesApi';
 import MoviePopularity from '../components/MoviePopularity';
 import LinearGradient from 'react-native-linear-gradient';
 import Genres from '../components/Movie/Genres';
-import { NavigationProps } from '../../App';
+import { RootStackProps } from '../navigation/INavigation';
 
-const Movie: React.FC<NavigationProps<'Movie'>> = ({ route }) => {
+const Movie = ({ route }: RootStackProps<'Movie'>) => {
   const { data } = route.params;
   const { data: genresData } = useGenresQuery();
 
