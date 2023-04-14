@@ -4,9 +4,9 @@ explore movies listed in the database, search for a particular movie and get
 information about it via REST API.  
 
 ## Used technologies and libraries: 
--TypeScript
--React Native
--Redux Toolkit
--React Navigation
--React Native Paper
--NativeWind
+- TypeScript
+- React Native
+- Redux Toolkit
+- React Navigation
+- React Native Paper
+- NativeWind
