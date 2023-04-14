@@ -1,4 +1,6 @@
-# Movie search
+# Work in progress
+------------------
+# Movie search mobile app
 A basic mobile application written in React Native, where you can 
 explore movies listed in the database, search for a particular movie and get 
 information about it via REST API.  
