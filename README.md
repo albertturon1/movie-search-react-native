@@ -1,4 +1,4 @@
-# Work in progress
+# Work in progress - refactor branch
 ------------------
 # Movie search mobile app
 A basic mobile application written in React Native, where you can 
