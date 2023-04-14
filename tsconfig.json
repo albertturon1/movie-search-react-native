@@ -4,14 +4,16 @@
     "module": "esnext",
     "baseUrl": "./",
     "paths": {
-      "@utils/*": ["./src/utils/*"],
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],
-      "@hooks/*": ["./src/hooks/*"],
+      "@components/*": ["./src/components/*"],
       "@interfaces/*": ["./src/interfaces/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@navigation/*": ["./src/navigation/*"],
+      "@utils/*": ["./src/utils/*"],
       "@screens/*": ["./src/screens/*"],
+      "@redux/*": ["./src/redux/*"],
+      "@src/*": ["./src/*"],
       "@/*": ["./*"]
     },
     "allowSyntheticDefaultImports": true,
@@ -26,5 +28,10 @@
     "resolveJsonModule": true
   },
   "include": ["./**/*", "./*", ".eslintrc.js"],
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }

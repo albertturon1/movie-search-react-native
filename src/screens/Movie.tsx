@@ -1,100 +1,71 @@
-import React from 'react';
-import { fsize, ftype } from '../theme/fonts';
-import styled from 'styled-components';
-import { verticalScale } from 'react-native-size-matters/extend';
-import { ScrollView } from 'react-native';
-import colors from '../theme/colors';
-import ScreenLayout from '../components/ScreenLayout';
-import { format } from 'fecha';
-import { useGenresQuery } from '../services/moviesApi';
+import {Image, ScrollView, View} from 'react-native';
+import {format} from 'fecha';
+import {useGenresQuery} from '../services/moviesApi';
 import MoviePopularity from '../components/MoviePopularity';
 import LinearGradient from 'react-native-linear-gradient';
 import Genres from '../components/Movie/Genres';
-import { RootStackProps } from '../navigation/INavigation';
+import {RootStackProps} from '../navigation/INavigation';
+import {Text} from 'react-native-paper';
+import ScreenPadding from '@components/ScreenPadding';
 
-const Movie = ({ route }: RootStackProps<'Movie'>) => {
-  const { data } = route.params;
-  const { data: genresData } = useGenresQuery();
+const Movie = ({route}: RootStackProps<'Movie'>) => {
+  const {movie} = route.params;
+  const {data: genresData} = useGenresQuery();
 
-  const movieGenres = genresData?.genres.filter((genre) => data.genre_ids.some((g2) => genre.id == g2)); //filtering genres that are binded to selected movie
-  const formattedReleaseDate = data.release_date ? format(new Date(data.release_date), 'mediumDate') : null;
-  const photoUrl = `https://image.tmdb.org/t/p/w780/${data.backdrop_path || data.poster_path}`;
-  const photoAspectRatio = data.backdrop_path ? 1.77 / 1 : 1 / 1.5;
-
-  const gradientProps = {
-    locations: [0, 0.4, 1],
-    colors: ['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.30)', 'rgba(0,0,0,0)'],
-    height: '100%',
-  };
-
+  const movieGenres = genresData?.genres.filter(genre =>
+    movie.genre_ids.some(g2 => genre.id == g2),
+  ); //filtering genres that are binded to selected movie
+  const formattedReleaseDate = movie.release_date
+    ? format(new Date(movie.release_date), 'mediumDate')
+    : null;
+  const photoAspectRatio = movie.backdrop_path ? 1.77 / 1 : 1 / 1.5;
+  console.log(JSON.stringify(movie, null, 2));
   return (
     <>
-      <CustomLinearGradient {...gradientProps} />
-      <ScrollView style={{ flexGrow: 1 }} contentContainerStyle={{ paddingBottom: verticalScale(60) }}>
-        <MoviePhoto isBackdrop={data.backdrop_path} source={{ uri: photoUrl }} resizeMode="cover" style={{ aspectRatio: photoAspectRatio }} />
-        <ScreenLayout>
-          <TitleText>{data.title}</TitleText>
-          <SectionLayout>
-            <MoviePopularity voteCount={data.vote_count} voteAverage={data.vote_average} />
-            <ReleaseAndLanguageWrapper>
-              {data.release_date ? <ReleaseDateText>Release date: {formattedReleaseDate}</ReleaseDateText> : null}
-              {data.original_language ? <ReleaseDateText>Original language: {data.original_language.toUpperCase()}</ReleaseDateText> : null}
-            </ReleaseAndLanguageWrapper>
-            {movieGenres ? <Genres genres={movieGenres} /> : null}
-          </SectionLayout>
-          {data.overview ? <DescriptionText>{data.overview}</DescriptionText> : null}
-        </ScreenLayout>
+      <LinearGradient
+        className="w-full h-16 absolute top-0 z-10"
+        colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.30)', 'rgba(0,0,0,0)']}
+        locations={[0, 0.4, 1]}
+      />
+      <ScrollView contentContainerStyle={{paddingBottom: 60}}>
+        <Image
+          source={{
+            uri: `https://image.tmdb.org/t/p/w780/${
+              movie.backdrop_path ?? movie.poster_path
+            }`,
+          }}
+          resizeMode="cover"
+          style={{aspectRatio: photoAspectRatio}}
+        />
+        <ScreenPadding>
+          <Text className="text-xl font-bold text-primaryBlack shrink mt-4 mb-1">
+            {movie.title}
+          </Text>
+          <MoviePopularity
+            voteCount={movie.vote_count}
+            voteAverage={movie.vote_average}
+          />
+          <View style={{rowGap: 2}} className="mb-2">
+            {movie.release_date && (
+              <Text className="text-[16px] text-secondaryBlack">{`Release date: ${formattedReleaseDate}`}</Text>
+            )}
+            {movie.original_language && (
+              <Text className="text-[16px]">{`Original language: ${movie.original_language.toUpperCase()}`}</Text>
+            )}
+            {movie.adult && (
+              <Text className="text-[16px] text-red-700">{`For adults`}</Text>
+            )}
+          </View>
+          {!!movieGenres && <Genres genres={movieGenres} />}
+          {!!movie.overview && (
+            <Text className="mt-4 text-[16px] leading-[22px] text-secondaryBlack shrink">
+              {movie.overview}
+            </Text>
+          )}
+        </ScreenPadding>
       </ScrollView>
     </>
   );
 };
 
 export default Movie;
-
-const MoviePhoto = styled.Image`
-  width: 100%;
-  margin-bottom: ${verticalScale(15)}px;
-  background-color: ${({ isBackdrop }: { isBackdrop?: boolean }) => (isBackdrop ? `${colors.grey}` : `${colors.primaryWhite}`)};
-`;
-const CustomLinearGradient = styled(LinearGradient)`
-  width: 100%;
-  height: ${verticalScale(60)}px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-`;
-
-const SectionLayout = styled.View`
-  margin-bottom: ${verticalScale(12)}px;
-`;
-
-const TitleText = styled.Text`
-  font-size: ${fsize.s22}px;
-  line-height: ${fsize.s22 * 1.2}px;
-  font-family: ${ftype.bold};
-  color: ${colors.primaryBlack};
-  flex-shrink: 1;
-  margin-bottom: ${verticalScale(10)}px;
-`;
-const DescriptionText = styled.Text`
-  font-size: ${fsize.s15}px;
-  line-height: ${fsize.s15 * 1.5}px;
-  font-family: ${ftype.regular};
-  color: ${colors.secondaryBlack};
-  flex-shrink: 1;
-`;
-
-//ReleaseAndLanguage
-const ReleaseAndLanguageWrapper = styled.View`
-  margin-top: ${verticalScale(4)}px;
-  margin-bottom: ${verticalScale(5)}px;
-`;
-
-const ReleaseDateText = styled.Text`
-  font-size: ${fsize.s15}px;
-  font-family: ${ftype.regular};
-  color: ${colors.secondaryBlack};
-  margin-bottom: ${verticalScale(2)}px;
-`;

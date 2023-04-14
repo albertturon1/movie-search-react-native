@@ -1,53 +1,28 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import React from 'react';
-import { scale, verticalScale } from 'react-native-size-matters/extend';
-import colors from '../theme/colors';
-import { fsize, ftype } from '../theme/fonts';
-import styled from 'styled-components';
+import {Image, View} from 'react-native';
+import {Text} from 'react-native';
+const Star = require('../../assets/icons/star.png');
 
-interface Props{
-    voteAverage: number;
-    voteCount: number;
-}
-
-const MoviePopularity: React.FC<Props> = ({voteAverage, voteCount}) => {
-  const starIconSource = require('../../assets/icons/star.png');
+const MoviePopularity = ({
+  voteAverage,
+  voteCount,
+}: {
+  voteAverage: number;
+  voteCount: number;
+}) => {
   const roundedVoteAverage = voteAverage.toFixed(2);
   const numberOfVotesCounter = voteCount > 1 ? 'votes' : 'vote';
 
   return (
-    <Container>
-      <StarIcon source={starIconSource} />
-      <VoteAverageText>{roundedVoteAverage}</VoteAverageText>
-      <VoteCountText>{`${voteCount}\n${numberOfVotesCounter}`}</VoteCountText>
-    </Container>
+    <View className="w-full flex flex-row items-center">
+      <View className="flex flex-row gap-x-2 mr-4 items-center">
+        <Image source={Star} className="w-6 h-6" />
+        <Text className="text-xl font-medium text-tertiaryBlack">
+          {roundedVoteAverage}
+        </Text>
+      </View>
+      <Text className="text-sm mt-0.5">{`${voteCount} ${numberOfVotesCounter}`}</Text>
+    </View>
   );
-}
+};
 
 export default MoviePopularity;
-
-//Popularity
-const Container = styled.View`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: ${verticalScale(5)}px;
-`;
-const VoteAverageText = styled.Text`
-  font-size: ${fsize.s20}px;
-  font-family: ${ftype.medium};
-  color: ${colors.tertiaryBlack};
-  margin-right: ${scale(10)}px;
-`;
-const VoteCountText = styled.Text`
-  font-size: ${fsize.s11}px;
-  line-height: ${fsize.s11}px;
-  font-family: ${ftype.medium};
-  color: ${colors.tertiaryBlack};
-  margin-top: ${scale(5)}px;
-`;
-const StarIcon = styled.Image`
-  width: ${scale(30)}px;
-  height: ${scale(30)}px;
-  margin-right: ${scale(10)}px;
-`;

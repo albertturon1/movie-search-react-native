@@ -1,47 +1,20 @@
-import React, {ReactElement} from 'react';
-import {fsize, ftype} from '../../theme/fonts';
-import styled from 'styled-components/native'
-import {scale, verticalScale} from 'react-native-size-matters/extend';
-import colors from '../../theme/colors';
-import { Genres as GenresInterface } from '../../services/moviesApi';
+import {Genre} from '@components/interfaces/IMovieAPi';
+import {View, Text} from 'react-native';
 
-
-const Genres: React.FC<GenresInterface> = ({genres}): ReactElement => {
-  return (
-    <Container>
-      {genres.map((genre, index) => {
-        return (
-          <GenreBox key={index}>
-            <GenreText>{genre.name}</GenreText>
-          </GenreBox>
-        );
-      })}
-    </Container>
-  );
-};
+const Genres = ({genres}: {genres: Genre[]}) => (
+  <View
+    className="flex flex-row flex-wrap items-center"
+    style={{columnGap: 8, rowGap: 12}}>
+    {genres.map(genre => {
+      return (
+        <View
+          key={genre.id}
+          className="py-1.5 bg-yellow-300 border rounded-3xl flex items-center justify-center px-4">
+          <Text className="font-medium text-tertiaryBlack">{genre.name}</Text>
+        </View>
+      );
+    })}
+  </View>
+);
 
 export default Genres;
-
-const Container = styled.View`
-  width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-`;
-
-const GenreBox = styled.View`
-  padding: ${verticalScale(6)}px ${scale(15)}px;
-  align-items: center;
-  justify-content: center;
-  border-width: 1px;
-  border-color: ${colors.tertiaryBlack};
-  border-radius: 15px;
-  margin-right: ${scale(7)}px;
-  margin-bottom: ${verticalScale(10)}px;
-  background-color: wheat;
-`;
-const GenreText = styled.Text`
-  font-size: ${fsize.s14}px;
-  font-family: ${ftype.medium};
-  color: ${colors.tertiaryBlack};
-`;
