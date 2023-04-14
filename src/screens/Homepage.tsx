@@ -2,13 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { FlatList, Text } from 'react-native';
 import LoadingIndicator from '../components/LoadingIndicator';
-import { scale } from 'react-native-size-matters/extend';
 import { Movie, Movies, useTrendingMoviesQuery } from '../services/moviesApi';
 import MovieListItem from '../components/Homepage/MovieListItem';
 import styled from 'styled-components';
-import { NavigationProps } from '../../App';
+import { RootStackProps } from '../navigation/INavigation';
 
-const Homepage: React.FC<NavigationProps<'Homepage'>> = () => {
+const Homepage = () => {
   const { data: moviesData, isLoading, isError } = useTrendingMoviesQuery();
 
   if (isLoading) {
@@ -23,16 +22,12 @@ const Homepage: React.FC<NavigationProps<'Homepage'>> = () => {
 
 export default Homepage;
 
-interface VerticalFlatlistProps {
-  moviesData: Movies | undefined;
-}
-
-const VerticalFlatlist: React.FC<VerticalFlatlistProps> = ({ moviesData }) => {
-  const navigation = useNavigation();
+const VerticalFlatlist = ({ moviesData }: { moviesData: Movies | undefined }) => {
+  const navigation = useNavigation<RootStackProps<'Home'>['navigation']>();
   const listData = moviesData?.results;
 
   const goMovie = (item: Movie): void => {
-    navigation.navigate('Movie' as never, { data: item } as never);
+    navigation.navigate('Movie', { data: item });
   };
 
   const renderItem = ({ item }: { item: Movie }) => {
