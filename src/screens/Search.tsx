@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Movie } from '@components/interfaces/IMovieAPi';
-import { useSearchMoviesQuery } from '@src/services/moviesApi';
 import Theme from '@src/Theme';
 
 import HeaderBar from '../components/SearchScreen/HeaderBar';
 import { RootStackProps } from '../navigation/INavigation';
+import { useSearchMoviesQuery } from '@redux/api/hooks/moviesApiHooks';
 
 
 const Search = ({ navigation, route }: RootStackProps<'Search'>) => {

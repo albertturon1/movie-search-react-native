@@ -1,11 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import {FlatList, Text, View} from 'react-native';
-import LoadingIndicator from '../../components/LoadingIndicator';
-import {useTrendingMoviesQuery} from '../../services/moviesApi';
-import MovieListItem from '../../components/Homepage/MovieListItem';
-import {RootStackProps} from '../../navigation/INavigation';
-import ScreenPadding from '@components/ScreenPadding';
+
 import {Movie} from '@components/interfaces/IMovieAPi';
+import ScreenPadding from '@components/ScreenPadding';
+import {useTrendingMoviesQuery} from '@redux/api/hooks/moviesApiHooks';
+
+import MovieListItem from '../../components/Homepage/MovieListItem';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import {RootStackProps} from '../../navigation/INavigation';
 
 const keyExtractor = (item: Movie | null) =>
   item?.id.toString() ?? Math.random().toString();

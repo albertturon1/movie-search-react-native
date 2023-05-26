@@ -1,21 +1,22 @@
 import React from 'react';
+
 import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Search from '@screens/Search';
-import Movie from '@screens/Movie';
-import Home from '@screens/Home/Home';
-import SearchButton from '@components/Homepage/SearchButton';
-import {Provider} from 'react-redux';
-import {store} from '@redux/store';
 import {Provider as PaperProvider} from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+
+import SearchButton from '@components/Homepage/SearchButton';
 import {RootStackParamList} from '@navigation/INavigation';
+import {store} from '@redux/store';
+import Home from '@screens/Home/Home';
+import Movie from '@screens/Movie';
+import Search from '@screens/Search';
 import Theme from '@src/Theme';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App: React.FC<RootStackParamList> = () => {
-  return (
+const App: React.FC<RootStackParamList> = () => (
     <Provider store={store}>
       <NavigationContainer theme={Theme}>
         <PaperProvider>
@@ -46,6 +47,5 @@ const App: React.FC<RootStackParamList> = () => {
       </NavigationContainer>
     </Provider>
   );
-};
 
 export default App;

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Searchbar } from 'react-native-paper';
 
 interface Props {
@@ -8,9 +9,6 @@ interface Props {
   autoFocus: boolean;
 }
 
-const SearchBar: React.FC<Props> = ({ value = '', onChangeText, placeholder = 'Search for a movie', autoFocus = false }) => {
-
-  return <Searchbar placeholder={placeholder} onChangeText={onChangeText} value={value} autoFocus={autoFocus}/>;
-};
+const SearchBar: React.FC<Props> = ({ value = '', onChangeText, placeholder = 'Search for a movie', autoFocus = false }) => <Searchbar placeholder={placeholder} onChangeText={onChangeText} value={value} autoFocus={autoFocus}/>;
 
 export default SearchBar;
