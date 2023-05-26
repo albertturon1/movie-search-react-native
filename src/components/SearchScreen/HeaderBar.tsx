@@ -1,19 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {View} from 'react-native';
 
-interface Props {
-  value: string;
-  onChangeText: (value: string) => void;
-  placeholder?: string;
-  autoFocus: boolean;
-}
+// interface Props {
+//   value: string;
+//   onChangeText: (value: string) => void;
+//   placeholder?: string;
+//   autoFocus: boolean;
+// }
 
-const HeaderBar = ({ value, onChangeText, placeholder, autoFocus }: Props) => {
+const HeaderBar = () => {
   const navigation = useNavigation();
-  const goBack = () => navigation.navigate('Homepage' as never);
+  const _goBack = () => navigation.navigate('Homepage' as never);
 
   return (
-    <View className='flex flex-1'>
+    <View className="flex flex-1">
       {/* <BackArrowWrapper>
         <Icon.Button name="arrowleft" backgroundColor="#fff" color="#000" onPress={goBack} />
       </BackArrowWrapper>

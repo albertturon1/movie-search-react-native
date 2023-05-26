@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-import { Movie } from '@components/interfaces/IMovieAPi';
+// import {Movie} from '@components/interfaces/IMovieAPi';
+// import { useSearchMoviesQuery } from '@redux/api/hooks/moviesApiHooks';
 import Theme from '@src/Theme';
 
 import HeaderBar from '../components/SearchScreen/HeaderBar';
-import { RootStackProps } from '../navigation/INavigation';
-import { useSearchMoviesQuery } from '@redux/api/hooks/moviesApiHooks';
+import {RootStackProps} from '../navigation/INavigation';
 
-
-const Search = ({ navigation, route }: RootStackProps<'Search'>) => {
+const Search = ({navigation, route}: RootStackProps<'Search'>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [value, setValue] = useState('');
-  const onChangeText = (value: string): void => setValue(value);
+  // const onChangeText = (value: string): void => setValue(value);
   const queryValue = value.trim().split(' ').join('+');
 
-  const { data: searchData } = useSearchMoviesQuery(queryValue);
+  // const { data: searchData } = useSearchMoviesQuery(queryValue);
 
   React.useLayoutEffect(() => {
-    navigation.setOptions({ header: () => <HeaderBar onChangeText={onChangeText} value={queryValue} autoFocus placeholder="Search a movie" /> });
+    navigation.setOptions({
+      header: () => (
+        <HeaderBar
+        // onChangeText={onChangeText}
+        // value={queryValue}
+        // autoFocus
+        // placeholder="Search a movie"
+        />
+      ),
+    });
   }, [navigation, queryValue, route, value]);
 
   return (
@@ -34,16 +43,16 @@ const Search = ({ navigation, route }: RootStackProps<'Search'>) => {
 };
 export default Search;
 
-const SearchResults = (props: Movie) => 
-  // if (props.results.length === 0) return <EmptyListText>We couldn&apos;t find anything for you</EmptyListText>;
-   (
-    <>
-      {/* {props?.results.map((result: Movie, index: number) => (
-        <MovieSearchItem key={index} {...result} />
-      ))} */}
-    </>
-  )
-;
+// const SearchResults = (props: Movie) =>
+//   // if (props.results.length === 0) return <EmptyListText>We couldn&apos;t find anything for you</EmptyListText>;
+//    (
+//     <>
+//       {/* {props?.results.map((result: Movie, index: number) => (
+//         <MovieSearchItem key={index} {...result} />
+//       ))} */}
+//     </>
+//   )
+// ;
 
 // const MovieSearchItem = (props: Movie) => {
 //   const navigation = useNavigation();

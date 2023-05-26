@@ -1,6 +1,4 @@
-import {Image, View} from 'react-native';
-import {Text} from 'react-native';
-
+import {View, Text} from 'react-native';
 
 const MoviePopularity = ({
   voteAverage,
