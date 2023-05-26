@@ -3549,6 +3549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/luxon@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@types/luxon@npm:3.3.0"
+  checksum: f7e3a89fc3ca404fbc3ea538653ed6860bc28f570a8c4d6d24449b89b9b553b7d6ad6cc94a9e129c5b8c9a2b97f0c365b3017f811e59c4a859a9c219a1c918e0
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 18.0.0
   resolution: "@types/node@npm:18.0.0"
@@ -4556,6 +4563,7 @@ __metadata:
     "@tsconfig/react-native": ^2.0.3
     "@types/google-libphonenumber": ^7.4.23
     "@types/jest": ^29.5.0
+    "@types/luxon": ^3.3.0
     "@types/react": ^18.0.35
     "@types/react-native": ^0.71.5
     "@types/react-native-vector-icons": ^6.4.13
@@ -4579,6 +4587,7 @@ __metadata:
     fecha: ^4.2.3
     jest: ^29.5.0
     jest-junit: ^14.0.1
+    luxon: ^3.3.0
     metro-react-native-babel-preset: ^0.76.2
     nativewind: ^2.0.11
     prettier: ^2.8.7
@@ -8799,6 +8808,13 @@ __metadata:
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
   checksum: e550d772384709deea3f141af34b6d4fa392e2e418c1498c078de0ee63670f1f46f5eee746e8ef7e69e1c895af0d4224e62ee33e66a543a14763b0f2e74c1356
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "luxon@npm:3.3.0"
+  checksum: 50cf17a0dc155c3dcacbeae8c0b7e80db425e0ba97b9cbdf12a7fc142d841ff1ab1560919f033af46240ed44e2f70c49f76e3422524c7fc8bb8d81ca47c66187
   languageName: node
   linkType: hard
 
