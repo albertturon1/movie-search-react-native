@@ -1,9 +1,5 @@
-import { View } from 'react-native';
-import React from 'react';
-import { Searchbar } from 'react-native-paper';
-import colors from '../../theme/colors';
-import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
+import { View } from 'react-native';
 
 interface Props {
   value: string;
@@ -12,12 +8,12 @@ interface Props {
   autoFocus: boolean;
 }
 
-const HeaderBar: React.FC<Props> = ({ value, onChangeText, placeholder, autoFocus }) => {
+const HeaderBar = ({ value, onChangeText, placeholder, autoFocus }: Props) => {
   const navigation = useNavigation();
   const goBack = () => navigation.navigate('Homepage' as never);
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View className='flex flex-1'>
       {/* <BackArrowWrapper>
         <Icon.Button name="arrowleft" backgroundColor="#fff" color="#000" onPress={goBack} />
       </BackArrowWrapper>

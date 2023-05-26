@@ -1,13 +1,14 @@
-import { Image, ScrollView, Pressable } from 'react-native';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import colors from '../theme/colors';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Movie, Movies, useSearchMoviesQuery } from '../services/moviesApi';
-import MoviePopularity from '../components/MoviePopularity';
-import { useNavigation } from '@react-navigation/native';
+
+import { Movie } from '@components/interfaces/IMovieAPi';
+import { useSearchMoviesQuery } from '@src/services/moviesApi';
+import Theme from '@src/Theme';
+
 import HeaderBar from '../components/SearchScreen/HeaderBar';
 import { RootStackProps } from '../navigation/INavigation';
+
 
 const Search = ({ navigation, route }: RootStackProps<'Search'>) => {
   const [value, setValue] = useState('');
@@ -18,10 +19,10 @@ const Search = ({ navigation, route }: RootStackProps<'Search'>) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({ header: () => <HeaderBar onChangeText={onChangeText} value={queryValue} autoFocus placeholder="Search a movie" /> });
-  }, [navigation, route, value]);
+  }, [navigation, queryValue, route, value]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={Theme.styles.flexOne}>
       {/* <ScrollView
         style={{ flex: 1, paddingTop: verticalScale(60) }}
         keyboardShouldPersistTaps={'handled'}
@@ -33,16 +34,16 @@ const Search = ({ navigation, route }: RootStackProps<'Search'>) => {
 };
 export default Search;
 
-const SearchResults = (props: Movies) => {
+const SearchResults = (props: Movie) => 
   // if (props.results.length === 0) return <EmptyListText>We couldn&apos;t find anything for you</EmptyListText>;
-  return (
+   (
     <>
       {/* {props?.results.map((result: Movie, index: number) => (
         <MovieSearchItem key={index} {...result} />
       ))} */}
     </>
-  );
-};
+  )
+;
 
 // const MovieSearchItem = (props: Movie) => {
 //   const navigation = useNavigation();
