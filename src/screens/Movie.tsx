@@ -1,12 +1,14 @@
-import {Image, ScrollView, View} from 'react-native';
 import {format} from 'fecha';
-import {useGenresQuery} from '../services/moviesApi';
-import MoviePopularity from '../components/MoviePopularity';
+import {Image, ScrollView, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Genres from '../components/Movie/Genres';
-import {RootStackProps} from '../navigation/INavigation';
 import {Text} from 'react-native-paper';
+
 import ScreenPadding from '@components/ScreenPadding';
+
+import Genres from '../components/Movie/Genres';
+import MoviePopularity from '../components/MoviePopularity';
+import {RootStackProps} from '../navigation/INavigation';
+import {useGenresQuery} from '../services/moviesApi';
 
 const Movie = ({route}: RootStackProps<'Movie'>) => {
   const {movie} = route.params;

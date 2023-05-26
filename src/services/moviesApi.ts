@@ -1,6 +1,7 @@
-import {GenresResponse, MoviesResponse} from '@components/interfaces/IMovieAPi';
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import Config from 'react-native-config';
+
+import {GenresResponse, MoviesResponse} from '@components/interfaces/IMovieAPi';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',

@@ -1,5 +1,6 @@
 import {Image, View} from 'react-native';
 import {Text} from 'react-native';
+
 const Star = require('../../assets/icons/star.png');
 
 const MoviePopularity = ({
