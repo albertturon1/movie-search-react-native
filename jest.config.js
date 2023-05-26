@@ -15,13 +15,18 @@ module.exports = {
   },
   setupFilesAfterEnv: ['<rootDir>/jestSetup.js'],
   transformIgnorePatterns: [
-    'node_modules/(?!(@react-native|react-native|react-native-vector-icons|react-navigation|react-native-config|react-native-reanimated|react-native-image-crop-picker|react-native-maps|react-native-linear-gradient)/.*)',
+    'node_modules/(?!(@react-native|react-native|react-native-vector-icons|@react-navigation|react-navigation|react-native-config|react-native-reanimated|react-native-image-crop-picker|react-native-maps|react-native-linear-gradient|@t3-oss/env-core)/.*)',
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>',
   }),
 
-  collectCoverageFrom: ['src/**/*.ts', 'src/**/*.tsx', '!**/node_modules/**', '!**/.yarn/**'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    'src/**/*.tsx',
+    '!**/node_modules/**',
+    '!**/.yarn/**',
+  ],
   coveragePathIgnorePatterns: [
     'node_modules',
     'interfaces',

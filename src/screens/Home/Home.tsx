@@ -22,7 +22,7 @@ const Home = () => {
     return <LoadingIndicator />;
   }
   if (isError) {
-    return <Text style={{color: 'red'}}>{'Error'}</Text>;
+    return <Text className="text-red-500">{'Error'}</Text>;
   }
 
   if (!listData || listData.length === 0)
@@ -35,7 +35,7 @@ const Home = () => {
     );
 
   const renderItem = ({item}: {item: Movie | null}) => {
-    if (!item) return <View style={{flex: 1}} />;
+    if (!item) return <View className="flex flex-1" />;
     return (
       <MovieListItem
         item={item}

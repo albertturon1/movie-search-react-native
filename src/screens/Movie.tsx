@@ -21,7 +21,7 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
     ? format(new Date(movie.release_date), 'mediumDate')
     : null;
   const photoAspectRatio = movie.backdrop_path ? 1.77 / 1 : 1 / 1.5;
-  
+
   return (
     <>
       <LinearGradient
@@ -29,6 +29,7 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
         colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.30)', 'rgba(0,0,0,0)']}
         locations={[0, 0.4, 1]}
       />
+      {/* eslint-disable-next-line react-native/no-inline-styles */}
       <ScrollView contentContainerStyle={{paddingBottom: 60}}>
         <Image
           source={{
@@ -47,8 +48,8 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
             voteCount={movie.vote_count}
             voteAverage={movie.vote_average}
           />
-          <View style={{rowGap: 2}} className="mb-2">
-            {movie.release_date && (
+          <View className="flex flex-col gap-y-0.5 mb-2">
+            {movie.release_date && formattedReleaseDate && (
               <Text className="text-[16px] text-secondaryBlack">{`Release date: ${formattedReleaseDate}`}</Text>
             )}
             {movie.original_language && (
