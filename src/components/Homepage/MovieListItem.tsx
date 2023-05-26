@@ -2,14 +2,14 @@ import {memo} from 'react';
 
 import {Image, Pressable, View} from 'react-native';
 
-import {Movie} from '@components/interfaces/IMovieAPi';
+import {MovieShort} from '@components/interfaces/IMovieAPi';
 import Theme from '@src/Theme';
 
 const MovieListItem = ({
   item,
   onPressFunc,
 }: {
-  item: Movie;
+  item: MovieShort;
   onPressFunc?: () => void;
 }) => (
   <View style={Theme.styles.flexOne}>

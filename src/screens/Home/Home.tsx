@@ -4,13 +4,13 @@ import {useNavigation} from '@react-navigation/native';
 import {FlatList, Text, View} from 'react-native';
 
 import MovieListItem from '@components/Homepage/MovieListItem';
-import {Movie} from '@components/interfaces/IMovieAPi';
+import {MovieShort} from '@components/interfaces/IMovieAPi';
 import LoadingIndicator from '@components/LoadingIndicator';
 import ScreenPadding from '@components/ScreenPadding';
 import {RootStackProps} from '@navigation/INavigation';
 import {useTrendingMoviesQuery} from '@redux/api/hooks/moviesApiHooks';
 
-const keyExtractor = (item: Movie | null) =>
+const keyExtractor = (item: MovieShort | null) =>
   item?.id.toString() ?? (Math.random() + 1).toString(36).substring(7);
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
   const listData = [...new Set(moviesData?.results)];
 
   const renderItem = useCallback(
-    ({item}: {item: Movie | null}) => {
+    ({item}: {item: MovieShort | null}) => {
       if (!item) return <View className="flex flex-1" />;
       return (
         <MovieListItem
