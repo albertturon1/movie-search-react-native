@@ -28,8 +28,16 @@ export type ApiEndpointBuilder = EndpointBuilder<
 const reducerPath = 'RootApi' as const;
 const tagTypes = [] as const;
 
+const HEADER_APP_JSON = 'application/json';
+
 const baseQuery = fetchBaseQuery({
   baseUrl: env.API_URL,
+  prepareHeaders: headers => {
+    headers.set('Authorization', `Bearer ${env.API_KEY}`);
+    headers.set('Accept-Language', HEADER_APP_JSON);
+    headers.set('Content-Type', HEADER_APP_JSON);
+    headers.set('Accept', HEADER_APP_JSON);
+  },
 }) as BaseQuery;
 const baseQueryWithErrorHandling: BaseQuery = async (args, api, extraOptions) =>
   await baseQuery(args, api, extraOptions);
