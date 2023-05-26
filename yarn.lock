@@ -3375,6 +3375,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@t3-oss/env-core@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@t3-oss/env-core@npm:0.3.1"
+  peerDependencies:
+    typescript: ">=4.7.2"
+    zod: ^3.0.0
+  checksum: 054f76e11522f6c6e07aa558f2fb325e9b05f83d13c8963ca3bb0cf3a398d54aec46c38c9ff7be9d08c8d05a11c5b221406f3908bf5c95517fe45756fc7df818
+  languageName: node
+  linkType: hard
+
 "@testing-library/jest-native@npm:^4.0.10":
   version: 4.0.13
   resolution: "@testing-library/jest-native@npm:4.0.13"
@@ -4540,6 +4550,7 @@ __metadata:
     "@react-navigation/native": ^6.1.6
     "@react-navigation/native-stack": ^6.9.12
     "@reduxjs/toolkit": ^1.9.3
+    "@t3-oss/env-core": ^0.3.1
     "@testing-library/jest-native": ^4.0.10
     "@testing-library/react-native": ^11.0.0
     "@tsconfig/react-native": ^2.0.3
@@ -4585,6 +4596,7 @@ __metadata:
     react-test-renderer: 18.2.0
     tailwindcss: ^3.3.1
     typescript: ^5.0.4
+    zod: ^3.21.4
   languageName: unknown
   linkType: soft
 
@@ -13016,5 +13028,12 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.21.4":
+  version: 3.21.4
+  resolution: "zod@npm:3.21.4"
+  checksum: f185ba87342ff16f7a06686767c2b2a7af41110c7edf7c1974095d8db7a73792696bcb4a00853de0d2edeb34a5b2ea6a55871bc864227dace682a0a28de33e1f
   languageName: node
   linkType: hard
