@@ -4,11 +4,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Text} from 'react-native-paper';
 
 import ScreenPadding from '@components/ScreenPadding';
+import {useGenresQuery} from '@redux/api/hooks/moviesApiHooks';
 
 import Genres from '../components/Movie/Genres';
 import MoviePopularity from '../components/MoviePopularity';
 import {RootStackProps} from '../navigation/INavigation';
-import {useGenresQuery} from '../services/moviesApi';
 
 const Movie = ({route}: RootStackProps<'Movie'>) => {
   const {movie} = route.params;
@@ -21,7 +21,7 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
     ? format(new Date(movie.release_date), 'mediumDate')
     : null;
   const photoAspectRatio = movie.backdrop_path ? 1.77 / 1 : 1 / 1.5;
-  console.log(JSON.stringify(movie, null, 2));
+  
   return (
     <>
       <LinearGradient

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Pressable, View} from 'react-native';
-import { Image } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
+import {Image, Pressable, View} from 'react-native';
 
 import { Movie } from '@components/interfaces/IMovieAPi';
 import Theme from '@src/Theme';

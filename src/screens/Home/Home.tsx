@@ -3,12 +3,11 @@ import {FlatList, Text, View} from 'react-native';
 
 import {Movie} from '@components/interfaces/IMovieAPi';
 import ScreenPadding from '@components/ScreenPadding';
+import {useTrendingMoviesQuery} from '@redux/api/hooks/moviesApiHooks';
 
 import MovieListItem from '../../components/Homepage/MovieListItem';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import {RootStackProps} from '../../navigation/INavigation';
-import {useTrendingMoviesQuery} from '../../services/moviesApi';
-
 
 const keyExtractor = (item: Movie | null) =>
   item?.id.toString() ?? Math.random().toString();

@@ -1,12 +1,10 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-
 import {GenresResponse, MoviesResponse} from '@components/interfaces/IMovieAPi';
 import {env} from '@src/env';
 
-export const moviesApi = createApi({
-  reducerPath: 'moviesApi',
-  baseQuery: fetchBaseQuery({baseUrl: env.API_URL}),
-  endpoints: builder => ({
+import {ApiEndpointBuilder} from './rootApi';
+
+export const MoviesApi = {
+  endpoints: (builder: ApiEndpointBuilder) => ({
     searchMovies: builder.query<MoviesResponse, string>({
       query: (name: string) => ({
         url: `/search/movie?api_key=${env.API_KEY}&query=${name}&page=1`,
@@ -19,7 +17,4 @@ export const moviesApi = createApi({
       query: () => ({url: `/genre/movie/list?api_key=${env.API_KEY}`}),
     }),
   }),
-});
-
-export const {useSearchMoviesQuery, useTrendingMoviesQuery, useGenresQuery} =
-  moviesApi;
+};
