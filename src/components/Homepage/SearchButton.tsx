@@ -1,7 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {Pressable, View} from 'react-native';
 
 const SearchButton: React.FC = () => {
   const navigation = useNavigation();
