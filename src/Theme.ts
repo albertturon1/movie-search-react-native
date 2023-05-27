@@ -57,6 +57,8 @@ const TailwindColorsSchema = z
     black: z.string(),
     yellowStar: z.string(),
     background: z.string(),
+    muted: z.string(),
+    border: z.string(),
   })
   .strict({
     message:
