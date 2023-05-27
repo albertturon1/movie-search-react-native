@@ -1,4 +1,7 @@
 import {View, Text} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import Theme from '@src/Theme';
 
 const MoviePopularity = ({
   voteAverage,
@@ -13,7 +16,7 @@ const MoviePopularity = ({
   return (
     <View className="w-full flex flex-row items-center">
       <View className="flex flex-row gap-x-2 mr-4 items-center">
-        {/* <Image source={Star} className="w-6 h-6" /> */}
+        <FontAwesome name="star" color={Theme.colors.yellowStar} size={20} />
         <Text className="text-xl font-medium text-tertiaryBlack">
           {roundedVoteAverage}
         </Text>

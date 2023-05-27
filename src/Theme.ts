@@ -1,7 +1,71 @@
 import {DefaultTheme as NavigationDefaultTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 import {DefaultTheme} from 'react-native-paper';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import {z} from 'zod';
 
+import tailwindConfig from '@/tailwind.config';
+
+type TailwindColors = z.infer<typeof TailwindColorsSchema>;
+
+const {theme} = resolveConfig(tailwindConfig);
+
+const ColorSchema = z.object({
+  50: z.string(),
+  100: z.string(),
+  200: z.string(),
+  300: z.string(),
+  400: z.string(),
+  500: z.string(),
+  600: z.string(),
+  700: z.string(),
+  800: z.string(),
+  900: z.string(),
+  950: z.string(),
+});
+
+const tailwindColors = theme?.colors;
+
+const TailwindColorsSchema = z
+  .object({
+    slate: ColorSchema,
+    gray: ColorSchema,
+    zinc: ColorSchema,
+    neutral: ColorSchema,
+    stone: ColorSchema,
+    red: ColorSchema,
+    orange: ColorSchema,
+    amber: ColorSchema,
+    yellow: ColorSchema,
+    lime: ColorSchema,
+    green: ColorSchema,
+    emerald: ColorSchema,
+    teal: ColorSchema,
+    cyan: ColorSchema,
+    sky: ColorSchema,
+    blue: ColorSchema,
+    indigo: ColorSchema,
+    violet: ColorSchema,
+    purple: ColorSchema,
+    fuchsia: ColorSchema,
+    pink: ColorSchema,
+    rose: ColorSchema,
+    current: z.string(),
+    transparent: z.string(),
+    inherit: z.string(),
+    white: z.string(),
+    black: z.string(),
+    yellowStar: z.string(),
+    background: z.string(),
+    muted: z.string(),
+    border: z.string(),
+  })
+  .strict({
+    message:
+      'There is a difference between TailwindColorScheme and tailwind.config.js. Compare the scheme and colors',
+  });
+//runtime check for colors in tailwind.config.js
+TailwindColorsSchema.parse(tailwindColors);
 
 const styles = StyleSheet.create({
   aspectRatioOne: {aspectRatio: 1},
@@ -16,33 +80,10 @@ const Theme = {
   isV3: false as const, //needed for PaperProvider
   colors: {
     ...NavigationDefaultTheme.colors,
-    primaryWhite: '#fffffff2', //opacity: 0.95
-    secondaryWhite: '#ffffffd9', //opacity: 0.85
-    tertiaryWhite: '#ffffffbf', //opacity: 0.75
-    primaryBlack: '#0A0A0A',
-    secondaryBlack: '#161618',
-    tertiaryBlack: '#212124',
-    darkGreen: '#077433',
-    green: '#1AB56Aff',
-    background: 'transparent',
-    transparent: 'transparent',
-    transparent_green: '#1AB56Acc',
-    gray: '#303030',
-    orange: '#cd4c15',
-    joinRed: '#F41010',
-    error: '#cc0000',
-    cancelGray: '#505050',
-    bottomSheetBlue: '#478ED6',
-    bottomSheetGrey: '#383838',
-    navigationBlue: '#1451AD',
-    twitter: '#1DA1F2',
-    facebook: '#4267B2',
-    overlay: '#0A0A0Aba', //opacity; 0.5
-    semiTransparent: 'rgba(28, 52, 64, 0.5)',
-    loginButton: 'rgba(4, 166, 217, 1)',
+    ...(theme?.colors as TailwindColors),
   },
   styles,
-  dark: true,
+  dark: false,
 };
 
 export default Theme;

@@ -1,73 +1,90 @@
-import {format} from 'fecha';
-import {Image, ScrollView, View} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {useMemo} from 'react';
+
+import {DateTime} from 'luxon';
+import {ScrollView, View} from 'react-native';
 import {Text} from 'react-native-paper';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
+import MovieGenres from '@components/Movie/MovieGenres';
+import MoviePopularity from '@components/MoviePopularity';
 import ScreenPadding from '@components/ScreenPadding';
-import {useGenresQuery} from '@redux/api/hooks/moviesApiHooks';
+import {Skeleton} from '@components/Skeleton';
+import {
+  useMovieImagesQuery,
+  useMovieQuery,
+  useMovieVideosQuery,
+} from '@redux/api/hooks/moviesApiHooks';
 
-import Genres from '../components/Movie/Genres';
-import MoviePopularity from '../components/MoviePopularity';
+import {MovieHeader} from './MovieHeader';
+import MoviePoster from './MoviePoster';
 import {RootStackProps} from '../navigation/INavigation';
 
 const Movie = ({route}: RootStackProps<'Movie'>) => {
-  const {movie} = route.params;
-  const {data: genresData} = useGenresQuery();
+  const {movie: movieInitialData} = route.params;
+  const {data: movie} = useMovieQuery(movieInitialData.id);
+  const {data: movieImages} = useMovieImagesQuery(movieInitialData.id);
+  const {data: videos, isLoading: isVideoLoading} = useMovieVideosQuery(
+    movieInitialData.id,
+  );
+  const trailerVideo = useMemo(() => {
+    if (!videos || !videos.results.length) return;
+    return videos.results
+      .filter(
+        video =>
+          video.type.toLowerCase() === 'trailer' &&
+          video.official &&
+          video.site === 'YouTube',
+      )
+      .sort((a, b) => (a.published_at < b.published_at ? 1 : -1))[0];
+  }, [videos]);
 
-  const movieGenres = genresData?.genres.filter(genre =>
-    movie.genre_ids.some(g2 => genre.id == g2),
-  ); //filtering genres that are binded to selected movie
-  const formattedReleaseDate = movie.release_date
-    ? format(new Date(movie.release_date), 'mediumDate')
-    : null;
-  const photoAspectRatio = movie.backdrop_path ? 1.77 / 1 : 1 / 1.5;
+  const overview =
+    movieInitialData.overview.length >= 208
+      ? `${movieInitialData.overview.slice(0, 205)}...`
+      : movieInitialData.overview;
+
+  const releaseDate = DateTime.fromISO(movieInitialData.release_date).toFormat(
+    'dd MMMM, yyyy',
+  );
 
   return (
-    <>
-      <LinearGradient
-        className="w-full h-16 absolute top-0 z-10"
-        colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.30)', 'rgba(0,0,0,0)']}
-        locations={[0, 0.4, 1]}
-      />
-      {/* eslint-disable-next-line react-native/no-inline-styles */}
-      <ScrollView contentContainerStyle={{paddingBottom: 60}}>
-        <Image
-          source={{
-            uri: `https://image.tmdb.org/t/p/w780/${
-              movie.backdrop_path ?? movie.poster_path
-            }`,
-          }}
-          resizeMode="cover"
-          style={{aspectRatio: photoAspectRatio}}
-        />
-        <ScreenPadding>
-          <Text className="text-xl font-bold text-primaryBlack shrink mt-4 mb-1">
-            {movie.title}
-          </Text>
+    <ScreenPadding>
+      <ScrollView className="pb-16 pt-3 flex flex-col gap-y-4">
+        <View className="flex flex-col gap-y-3">
+          <MovieHeader movieInitialData={movieInitialData} movie={movie} />
+          {isVideoLoading}
+          {(trailerVideo || isVideoLoading) && (
+            <View className="w-full h-[200px] bg-muted">
+              {trailerVideo ? (
+                <YoutubePlayer height={200} videoId={trailerVideo.key} />
+              ) : (
+                <Skeleton styleClassName="w-full h-full" />
+              )}
+            </View>
+          )}
+        </View>
+        <View className="flex flex-row gap-x-2">
+          <MoviePoster
+            movieInitialData={movieInitialData}
+            movieImages={movieImages}
+          />
+          <View className="flex flex-1 mt-1">
+            {movie && <MovieGenres genres={movie.genres.slice(0, 3)} />}
+            <Text className="leading-[23px] mt-1">{overview}</Text>
+          </View>
+        </View>
+        <View>
           <MoviePopularity
-            voteCount={movie.vote_count}
-            voteAverage={movie.vote_average}
+            voteCount={movieInitialData.vote_count}
+            voteAverage={movieInitialData.vote_average}
           />
           <View className="flex flex-col gap-y-0.5 mb-2">
-            {movie.release_date && formattedReleaseDate && (
-              <Text className="text-[16px] text-secondaryBlack">{`Release date: ${formattedReleaseDate}`}</Text>
-            )}
-            {movie.original_language && (
-              <Text className="text-[16px]">{`Original language: ${movie.original_language.toUpperCase()}`}</Text>
-            )}
-            {movie.adult && (
-              <Text className="text-[16px] text-red-700">{`For adults`}</Text>
-            )}
+            <Text className="text-[16px] text-secondaryBlack">{`Release date: ${releaseDate}`}</Text>
+            <Text className="text-[16px]">{`Original language: ${movieInitialData.original_language.toUpperCase()}`}</Text>
           </View>
-          {!!movieGenres && <Genres genres={movieGenres} />}
-          {!!movie.overview && (
-            <Text className="mt-4 text-[16px] leading-[22px] text-secondaryBlack shrink">
-              {movie.overview}
-            </Text>
-          )}
-        </ScreenPadding>
+        </View>
       </ScrollView>
-    </>
+    </ScreenPadding>
   );
 };
 

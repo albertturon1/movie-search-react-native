@@ -47,3 +47,5 @@ export const RootApi = createApi({
   baseQuery: baseQueryWithErrorHandling,
   endpoints: _builder => ({}),
 }).injectEndpoints(MoviesApi);
+
+export const usePrefetch = RootApi.usePrefetch.bind(RootApi);
