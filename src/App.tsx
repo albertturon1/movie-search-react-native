@@ -1,5 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {StatusBar} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
@@ -33,14 +34,16 @@ const App = () => (
               name="Movie"
               component={Movie}
               options={{
-                headerTransparent: true,
+                headerShown: false,
                 animation: 'slide_from_right',
-                headerTintColor: Theme.colors.primaryWhite,
-                title: '',
               }}
             />
           </Stack.Navigator>
         </SafeAreaProvider>
+        <StatusBar
+          backgroundColor={Theme.colors.background}
+          barStyle="dark-content"
+        />
       </PaperProvider>
     </NavigationContainer>
   </Provider>
