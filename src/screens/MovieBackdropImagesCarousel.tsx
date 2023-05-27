@@ -4,14 +4,14 @@ import Carousel from 'react-native-reanimated-carousel';
 import {MovieImage} from '@components/interfaces/IMovieAPi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-const MovieBackdropImages = ({images}: {images: MovieImage[]}) => {
+const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
   const {width} = useWindowDimensions();
   const carouselWidth = width - 2 * 12;
 
   if (!images || !images.length) return null;
   return (
     <Carousel
-      loop
+      loop={false}
       width={carouselWidth}
       height={width / 2}
       mode="parallax"
@@ -34,4 +34,4 @@ const Item = ({item}: {item: MovieImage}) => (
   </View>
 );
 
-export default MovieBackdropImages;
+export default MovieBackdropImagesCarousel;
