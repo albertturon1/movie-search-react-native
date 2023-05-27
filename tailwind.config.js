@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         yellowStar: '#ffd60b',
         background: '#fff',
+        muted: '#EAEAEA',
+        border: '#f6f0e8',
       },
     },
   },
