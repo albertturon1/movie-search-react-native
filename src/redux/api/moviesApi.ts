@@ -2,6 +2,7 @@ import {
   GenresResponse,
   Movie,
   MovieImagesResponse,
+  MovieVideosResponse,
   MoviesResponse,
 } from '@components/interfaces/IMovieAPi';
 
@@ -17,6 +18,11 @@ export const MoviesApi = {
     movieImages: builder.query<MovieImagesResponse, number>({
       query: (id: number) => ({
         url: `/movie/${id}/images`,
+      }),
+    }),
+    movieVideos: builder.query<MovieVideosResponse, number>({
+      query: (id: number) => ({
+        url: `/movie/${id}/videos`,
       }),
     }),
     searchMovies: builder.query<MoviesResponse, string>({
