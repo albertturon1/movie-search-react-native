@@ -1,10 +1,12 @@
+import {useNavigation} from '@react-navigation/native';
 import {DateTime} from 'luxon';
-import {View} from 'react-native';
+import {View, Pressable} from 'react-native';
 import {Text} from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Movie, MovieShort} from '@components/interfaces/IMovieAPi';
-import Genres from '@components/Movie/Genres';
-import MoviePopularity from '@components/MoviePopularity';
+import {formatRuntime} from '@src/lib/utils';
+import Theme from '@src/Theme';
 
 export const MovieHeader = ({
   movieInitialData,
@@ -13,36 +15,31 @@ export const MovieHeader = ({
   movieInitialData: MovieShort;
   movie: Movie | undefined;
 }) => {
-  const releaseDate = DateTime.fromISO(movieInitialData.release_date).toFormat(
-    'dd MMMM, yyyy',
-  );
+  const navigation = useNavigation();
+
   return (
-    <>
-      <Text className="text-xl font-bold text-primaryBlack shrink mt-4">
+    <View className="relative flex flex-col gap-y-1.5 px-10 overflow-hidden">
+      <Pressable
+        onPress={() => {
+          navigation.goBack();
+        }}
+        className="absolute -top-3 -left-4 p-4 z-50">
+        <MaterialCommunityIcons
+          name="arrow-left"
+          color={Theme.colors.black}
+          size={25}
+        />
+      </Pressable>
+      <Text className="text-[27px] text-black leading-[34px] text-center font-medium">
         {movieInitialData.title}
       </Text>
-      <View className="py-0.5">
-        <MoviePopularity
-          voteCount={movieInitialData.vote_count}
-          voteAverage={movieInitialData.vote_average}
-        />
+      <View className="flex flex-row gap-x-3 justify-center items-center">
+        <Text>
+          {DateTime.fromISO(movieInitialData.release_date).toFormat('yyyy')}
+        </Text>
+        {movie && <Text>{formatRuntime(movie.runtime)}</Text>}
+        {movieInitialData.adult && <Text>{'For adults'}</Text>}
       </View>
-      <View className="flex flex-col gap-y-0.5 mb-2">
-        {movieInitialData.release_date && (
-          <Text className="text-[16px] text-secondaryBlack">{`Release date: ${releaseDate}`}</Text>
-        )}
-        {movieInitialData.original_language && (
-          <Text className="text-[16px]">{`Original language: ${movieInitialData.original_language.toUpperCase()}`}</Text>
-        )}
-        {movieInitialData.adult && (
-          <Text className="text-[16px] text-red-700">{`For adults`}</Text>
-        )}
-      </View>
-      {movie && (
-        <View className="mt-2">
-          <Genres genres={movie.genres} />
-        </View>
-      )}
-    </>
+    </View>
   );
 };
