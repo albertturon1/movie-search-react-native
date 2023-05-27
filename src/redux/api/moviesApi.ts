@@ -1,6 +1,7 @@
 import {
   GenresResponse,
   Movie,
+  MovieCreditsResponse,
   MovieImagesResponse,
   MovieVideosResponse,
   MoviesResponse,
@@ -23,6 +24,11 @@ export const MoviesApi = {
     movieVideos: builder.query<MovieVideosResponse, number>({
       query: (id: number) => ({
         url: `/movie/${id}/videos`,
+      }),
+    }),
+    movieCredits: builder.query<MovieCreditsResponse, number>({
+      query: (id: number) => ({
+        url: `/movie/${id}/credits`,
       }),
     }),
     searchMovies: builder.query<MoviesResponse, string>({
