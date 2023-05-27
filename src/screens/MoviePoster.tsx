@@ -9,22 +9,22 @@ import {getTMDBImagePath} from '@src/lib/utils';
 const DEFAULT_POSTER_ASPECT_RATIO = 0.667;
 
 const MoviePoster = ({
-  movieImages,
+  images,
   movieInitialData,
 }: {
-  movieImages: MovieImagesResponse | undefined;
+  images: MovieImagesResponse | undefined;
   movieInitialData: MovieShort;
 }) => {
   const posterUri = getTMDBImagePath({
     path:
-      movieImages && !!movieImages.posters.length
-        ? movieImages.posters[0].file_path
+      images && !!images.posters.length
+        ? images.posters[0].file_path
         : movieInitialData.poster_path,
     size: 'w500',
   });
   const posterAspectRatio =
-    movieImages && !!movieImages.posters.length
-      ? movieImages.posters[0].aspect_ratio
+    images && !!images.posters.length
+      ? images.posters[0].aspect_ratio
       : DEFAULT_POSTER_ASPECT_RATIO;
 
   return (
