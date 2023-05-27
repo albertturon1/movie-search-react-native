@@ -3,6 +3,7 @@ import {memo} from 'react';
 import {Image, Pressable, View} from 'react-native';
 
 import {MovieShort} from '@components/interfaces/IMovieAPi';
+import {getTMDBImagePath} from '@src/lib/utils';
 import Theme from '@src/Theme';
 
 const MovieListItem = ({
@@ -17,7 +18,9 @@ const MovieListItem = ({
       <View className="flex flex-1 m-0.5 overflow-hidden">
         <Image
           className="flex flex-1 border-0.5 object-cover"
-          source={{uri: `https://image.tmdb.org/t/p/w300/${item.poster_path}`}}
+          source={{
+            uri: getTMDBImagePath({size: 'w300', path: item.poster_path}),
+          }}
           style={{aspectRatio: 1 / 1.5}}
         />
       </View>
