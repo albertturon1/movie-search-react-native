@@ -1,3 +1,5 @@
+import {PaginatedData} from '@interfaces/IApi';
+
 export type Genre = {
   id: number;
   name: string;
@@ -63,12 +65,7 @@ export type Movie = {
   tagline: string;
 } & Omit<MovieShort, 'genre_ids' | 'media_type'>;
 
-export interface MoviesResponse {
-  page: number;
-  results: MovieShort[];
-  total_pages: number;
-  total_results: number;
-}
+export type MoviesResponse = PaginatedData<MovieShort>;
 
 export interface GenresResponse {
   genres: Genre[];
@@ -163,3 +160,23 @@ export type MovieCreditsResponse = {
   cast: MovieCast[];
   crew: MovieCrew[];
 };
+
+export type MovieRecommendation = {
+  adult: false;
+  backdrop_path: string;
+  id: number;
+  title: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  poster_path: string;
+  media_type: string;
+  genre_ids: number[];
+  popularity: number;
+  release_date: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+};
+
+export type MovieRecommendationsResponse = PaginatedData<MovieRecommendation>;
