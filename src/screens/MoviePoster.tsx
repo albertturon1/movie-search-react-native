@@ -1,22 +1,36 @@
 import {View, Image} from 'react-native';
 
-import {getTMDBImagePath} from '@src/lib/utils';
+import {ImagePathSize, getTMDBImagePath} from '@src/lib/utils';
 
 const DEFAULT_POSTER_ASPECT_RATIO = 0.667;
 
-const MoviePoster = ({path}: {path: string}) => (
+const MoviePoster = ({
+  path,
+  size,
+  aspectRatio = DEFAULT_POSTER_ASPECT_RATIO,
+  containerClassName = '',
+}: {
+  path: ImagePathSize['path'];
+  size?: ImagePathSize['size'];
+  aspectRatio?: number;
+  containerClassName?: string;
+}) => (
   <View
-    className="min-w-[120px] w-[30%] max-w-[300px] h-min border-0.5 border-border"
-    style={{aspectRatio: DEFAULT_POSTER_ASPECT_RATIO}}>
-    <Image
-      source={{
-        uri: getTMDBImagePath({
-          path,
-          size: 'w500',
-        }),
-      }}
-      className="object-cover w-full h-full"
-    />
+    className={`border-0.5 border-border ${containerClassName}`}
+    style={{aspectRatio}}>
+    {path ? (
+      <Image
+        source={{
+          uri: getTMDBImagePath({
+            path,
+            size: size ?? 'w185',
+          }),
+        }}
+        className="object-cover w-full h-full"
+      />
+    ) : (
+      <View className="flex flex-1 bg-muted" />
+    )}
   </View>
 );
 
