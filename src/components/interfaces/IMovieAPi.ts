@@ -133,16 +133,17 @@ export type MovieCast = {
   adult: boolean;
   gender: number;
   id: number;
-  known_for_department: number;
-  name: number;
-  original_name: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
   popularity: number;
-  profile_path: number;
+  profile_path: string;
   cast_id: number;
-  character: number;
-  credit_id: number;
+  character: string;
+  credit_id: string;
   order: number;
 };
+
 export type MovieCrew = {
   adult: false;
   gender: number;
