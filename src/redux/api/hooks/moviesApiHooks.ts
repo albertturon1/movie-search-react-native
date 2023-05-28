@@ -4,6 +4,7 @@ export const {
   useMovieQuery,
   useMovieImagesQuery,
   useMovieCreditsQuery,
+  useMovieRecommendationsQuery,
   useMovieVideosQuery,
   useSearchMoviesQuery,
   useTrendingMoviesQuery,

@@ -1,33 +1,24 @@
-import {View, useWindowDimensions, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import {MovieCast} from '@components/interfaces/IMovieAPi';
+import {MovieCast} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
+import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
+
 const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
-  const {width} = useWindowDimensions();
-  const carouselWidth = width - 2 * 12;
+  const {carouselWidth, options} = useMovieCarouselOptions();
 
   if (!cast || !cast.length) return null;
   return (
     <Carousel
-      loop={false}
+      {...options}
       width={carouselWidth / 3.2}
       height={220}
-      style={{
-        width: carouselWidth,
-      }}
       data={cast}
-      scrollAnimationDuration={200}
       renderItem={Item}
-      overscrollEnabled={false}
-      pagingEnabled={false}
-      snapEnabled={false}
-      panGestureHandlerProps={{
-        activeOffsetX: [-20, 20],
-      }}
     />
   );
 };
@@ -48,10 +39,11 @@ const Item = ({item}: {item: MovieCast}) => (
         </View>
       )}
     </View>
-    <View className="h-[70px] flex flex-col mt-1">
+    <View className="h-[70px] flex flex-col mt-1 justify-between">
       <Text>{item.name}</Text>
       <Text className="text-black/70">{item.character}</Text>
     </View>
   </View>
 );
+
 export default MovieCastCarousel;

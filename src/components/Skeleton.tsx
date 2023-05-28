@@ -10,13 +10,13 @@ export const Skeleton = ({styleClassName}: {styleClassName?: string}) => {
     const pulseAnimation = Animated.loop(
       Animated.sequence([
         Animated.timing(opacity, {
-          toValue: 0.5,
-          duration: 1000,
+          toValue: 0.3,
+          duration: 150,
           useNativeDriver: true,
         }),
         Animated.timing(opacity, {
           toValue: 1,
-          duration: 1000,
+          duration: 150,
           useNativeDriver: true,
         }),
       ]),
