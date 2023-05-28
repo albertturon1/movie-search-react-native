@@ -8,7 +8,7 @@ import {getTMDBImagePath} from '@src/lib/utils';
 
 import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
 
-const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
+const MovieRecommendationsCarousel = ({cast}: {cast: MovieCast[]}) => {
   const {carouselWidth, options} = useMovieCarouselOptions();
 
   if (!cast || !cast.length) return null;
@@ -45,4 +45,4 @@ const Item = ({item}: {item: MovieCast}) => (
     </View>
   </View>
 );
-export default MovieCastCarousel;
+export default MovieRecommendationsCarousel;
