@@ -27,10 +27,11 @@ const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
         width: carouselWidth,
       }}
       data={cast}
-      scrollAnimationDuration={300}
+      scrollAnimationDuration={200}
       renderItem={Item}
       overscrollEnabled={false}
       pagingEnabled={false}
+      snapEnabled={false}
       panGestureHandlerProps={{
         activeOffsetX: [-20, 20],
       }}

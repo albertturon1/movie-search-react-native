@@ -16,8 +16,9 @@ const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
       height={width / 2}
       mode="parallax"
       data={images}
-      scrollAnimationDuration={1000}
+      scrollAnimationDuration={200}
       pagingEnabled
+      snapEnabled={false}
       overscrollEnabled={false}
       renderItem={Item}
       panGestureHandlerProps={{
