@@ -1,18 +1,18 @@
 import {useMemo} from 'react';
 
 import {DateTime} from 'luxon';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 import MovieGenres from '@components/Movie/MovieGenres';
 import MoviePopularity from '@components/MoviePopularity';
 import ScreenPadding from '@components/ScreenPadding';
-import {Skeleton} from '@components/Skeleton';
 import {
   useMovieCreditsQuery,
   useMovieImagesQuery,
   useMovieQuery,
+  useMovieRecommendationsQuery,
   useMovieVideosQuery,
 } from '@redux/api/hooks/moviesApiHooks';
 
@@ -20,16 +20,22 @@ import MovieBackdropImagesCarousel from './MovieBackdropImagesCarousel';
 import MovieCastCarousel from './MovieCastCarousel';
 import {MovieHeader} from './MovieHeader';
 import MoviePoster from './MoviePoster';
+import MovieSection from './MovieSection';
 import {RootStackProps} from '../navigation/INavigation';
 
 const Movie = ({route}: RootStackProps<'Movie'>) => {
   const {movie: movieInitialData} = route.params;
   const {data: movie} = useMovieQuery(movieInitialData.id);
-  const {data: images} = useMovieImagesQuery(movieInitialData.id);
+  const {data: images, isLoading: isImagesLoading} = useMovieImagesQuery(
+    movieInitialData.id,
+  );
   const {data: videos, isLoading: isVideoLoading} = useMovieVideosQuery(
     movieInitialData.id,
   );
   const {data: credits, isLoading: isCreditsLoading} = useMovieCreditsQuery(
+    movieInitialData.id,
+  );
+  const {data: recommendations} = useMovieRecommendationsQuery(
     movieInitialData.id,
   );
 
@@ -57,20 +63,14 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
   return (
     <ScrollView>
       <ScreenPadding>
-        <View className="mb-16 pt-3 flex flex-col gap-y-4 flex-1">
-          <View className="flex flex-col gap-y-3">
-            <MovieHeader movieInitialData={movieInitialData} movie={movie} />
-            {isVideoLoading}
-            {(trailerVideo || isVideoLoading) && (
-              <View className="w-full h-[200px] bg-muted">
-                {trailerVideo ? (
-                  <YoutubePlayer height={200} videoId={trailerVideo.key} />
-                ) : (
-                  <Skeleton styleClassName="w-full h-full" />
-                )}
-              </View>
-            )}
-          </View>
+        <View style={styles.container}>
+          <MovieHeader movieInitialData={movieInitialData} movie={movie} />
+          <MovieSection
+            data={trailerVideo}
+            isDataLoading={isVideoLoading}
+            skeletonClassName="h-[200px]">
+            {data => <YoutubePlayer height={200} videoId={data.key} />}
+          </MovieSection>
           <View className="flex flex-row w-full">
             <MoviePoster movieInitialData={movieInitialData} />
             <View className="flex flex-1 mt-1 ml-2">
@@ -88,28 +88,38 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
               <Text className="text-[16px]">{`Original language: ${movieInitialData.original_language.toUpperCase()}`}</Text>
             </View>
           </View>
-          {(credits || isCreditsLoading) && (
-            <View className="w-full h-[255px]">
-              {credits ? (
-                <View className="flex flex-col mb-4">
-                  <Text className="text-lg font-bold mb-1">{'Cast'}</Text>
-                  <MovieCastCarousel cast={credits.cast} />
-                </View>
-              ) : (
-                <Skeleton styleClassName="w-full h-full" />
-              )}
-            </View>
-          )}
-          {images && (
-            <View className="flex flex-col mb-4">
-              <Text className="text-lg font-bold -mb-2">{'Backdrops'}</Text>
-              <MovieBackdropImagesCarousel images={images.backdrops} />
-            </View>
-          )}
+          <View style={styles.sectionsWrapper}>
+            <MovieSection
+              title="Cast"
+              data={credits}
+              isDataLoading={isCreditsLoading}
+              skeletonClassName="h-[255px]">
+              {data => <MovieCastCarousel cast={data.cast} />}
+            </MovieSection>
+            <MovieSection
+              title="Backdrops"
+              data={images}
+              isDataLoading={isImagesLoading}
+              titleClassName="-mb-2"
+              skeletonClassName="h-[210px]">
+              {data => <MovieBackdropImagesCarousel images={data.backdrops} />}
+            </MovieSection>
+          </View>
         </View>
       </ScreenPadding>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    rowGap: 16,
+    marginBottom: 16,
+    paddingTop: 12,
+  },
+  sectionsWrapper: {
+    rowGap: 20,
+  },
+});
 
 export default Movie;
