@@ -2,7 +2,7 @@ import {memo} from 'react';
 
 import {Image, Pressable, View} from 'react-native';
 
-import {MovieShort} from '@components/interfaces/IMovieAPi';
+import {MovieShort} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 import Theme from '@src/Theme';
 

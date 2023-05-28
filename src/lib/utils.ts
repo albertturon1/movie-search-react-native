@@ -1,13 +1,12 @@
-import {ImageSize} from '@components/interfaces/IMovieAPi';
+import {ImageSize} from '@interfaces/api/IMovieApi';
 import {env} from '@src/env';
 
-export function getTMDBImagePath({
-  size,
-  path,
-}: {
+export type ImagePathSize = {
   size: ImageSize;
   path: string;
-}) {
+};
+
+export function getTMDBImagePath({size, path}: ImagePathSize) {
   return `${env.API_IMAGE_BASE_URL}/${size}/${path}`;
 }
 

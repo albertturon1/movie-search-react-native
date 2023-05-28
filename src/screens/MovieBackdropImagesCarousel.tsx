@@ -1,29 +1,25 @@
 import {View, useWindowDimensions, Image} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
-import {MovieImage} from '@components/interfaces/IMovieAPi';
+import {MovieImage} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
+
+import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
 
 const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
   const {width} = useWindowDimensions();
-  const carouselWidth = width - 2 * 12;
+  const {carouselWidth, options} = useMovieCarouselOptions();
 
   if (!images || !images.length) return null;
   return (
     <Carousel
-      loop={false}
+      {...options}
       width={carouselWidth}
       height={width / 2}
       mode="parallax"
       data={images}
-      scrollAnimationDuration={200}
       pagingEnabled
-      snapEnabled={false}
-      overscrollEnabled={false}
       renderItem={Item}
-      panGestureHandlerProps={{
-        activeOffsetX: [-20, 20],
-      }}
     />
   );
 };

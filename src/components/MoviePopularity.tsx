@@ -1,4 +1,5 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
+import {Text} from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Theme from '@src/Theme';
