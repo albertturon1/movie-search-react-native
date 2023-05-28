@@ -18,7 +18,11 @@ const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
       data={images}
       scrollAnimationDuration={1000}
       pagingEnabled
+      overscrollEnabled={false}
       renderItem={Item}
+      panGestureHandlerProps={{
+        activeOffsetX: [-20, 20],
+      }}
     />
   );
 };
