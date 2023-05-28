@@ -4,10 +4,10 @@ import {useNavigation} from '@react-navigation/native';
 import {FlatList, Text, View} from 'react-native';
 
 import MovieListItem from '@components/Homepage/MovieListItem';
-import {MovieShort} from '@components/interfaces/IMovieAPi';
 import LoadingIndicator from '@components/LoadingIndicator';
 import ScreenPadding from '@components/ScreenPadding';
-import {RootStackProps} from '@navigation/INavigation';
+import {MovieShort} from '@interfaces/api/IMovieApi';
+import {RootStackProps} from '@interfaces/INavigation';
 import {useTrendingMoviesQuery} from '@redux/api/hooks/moviesApiHooks';
 import {usePrefetch} from '@redux/api/rootApi';
 

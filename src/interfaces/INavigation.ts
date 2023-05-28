@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {MovieShort} from '@components/interfaces/IMovieAPi';
+import {MovieShort} from '@interfaces/api/IMovieApi';
 
 export type RootStackProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>;

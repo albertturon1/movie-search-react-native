@@ -3,7 +3,7 @@ import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import {MovieCast} from '@components/interfaces/IMovieAPi';
+import {MovieCast} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
 import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
@@ -39,10 +39,11 @@ const Item = ({item}: {item: MovieCast}) => (
         </View>
       )}
     </View>
-    <View className="h-[70px] flex flex-col mt-1">
+    <View className="h-[70px] flex flex-col mt-1 justify-between">
       <Text>{item.name}</Text>
       <Text className="text-black/70">{item.character}</Text>
     </View>
   </View>
 );
+
 export default MovieCastCarousel;

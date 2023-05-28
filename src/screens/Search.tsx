@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-// import {Movie} from '@components/interfaces/IMovieAPi';
+// import {Movie} from '@components/interfaces/IMovieApi';
 // import { useSearchMoviesQuery } from '@redux/api/hooks/moviesApiHooks';
+import {RootStackProps} from '@interfaces/INavigation';
 import Theme from '@src/Theme';
 
 import HeaderBar from '../components/SearchScreen/HeaderBar';
-import {RootStackProps} from '../navigation/INavigation';
 
 const Search = ({navigation, route}: RootStackProps<'Search'>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

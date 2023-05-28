@@ -1,7 +1,7 @@
 import {View, useWindowDimensions, Image} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
-import {MovieImage} from '@components/interfaces/IMovieAPi';
+import {MovieImage} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
 import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';

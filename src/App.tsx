@@ -7,7 +7,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 
 import SearchButton from '@components/Homepage/SearchButton';
-import {RootStackParamList} from '@navigation/INavigation';
+import {RootStackParamList} from '@interfaces/INavigation';
 import {store} from '@redux/store';
 import Home from '@screens/Home/Home';
 import Movie from '@screens/Movie';

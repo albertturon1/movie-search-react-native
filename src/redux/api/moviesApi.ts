@@ -6,7 +6,7 @@ import {
   MovieRecommendationsResponse,
   MovieVideosResponse,
   MoviesResponse,
-} from '@components/interfaces/IMovieAPi';
+} from '@interfaces/api/IMovieApi';
 
 import {ApiEndpointBuilder} from './rootApi';
 
