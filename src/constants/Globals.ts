@@ -1,1 +1,1 @@
-export const SCREEN_HORIZONTAL_PADDING = 16;
+export const SCREEN_HORIZONTAL_PADDING = 12;
