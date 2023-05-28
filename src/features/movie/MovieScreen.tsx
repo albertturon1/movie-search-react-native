@@ -5,7 +5,7 @@ import {ScrollView, View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
-import MovieGenres from '@components/Movie/MovieGenres';
+import MovieGenres from '@components/misc/MovieGenres';
 import MoviePopularity from '@components/MoviePopularity';
 import ScreenPadding from '@components/ScreenPadding';
 import {RootStackProps} from '@interfaces/INavigation';

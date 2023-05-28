@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 
-import MovieBackArrow from '@components/Movie/MovieBackArrow';
+import MovieBackArrow from '@components/misc/MovieBackArrow';
 import {Movie, MovieShort} from '@interfaces/api/IMovieApi';
 
 import MovieYearRuntimeAdult from './MovieYearRuntimeAdult';
