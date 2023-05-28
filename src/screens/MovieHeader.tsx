@@ -18,10 +18,12 @@ export const MovieHeader = ({
     <Text className="text-[27px] text-black leading-[34px] text-center font-medium">
       {movieInitialData.title}
     </Text>
-    <MovieYearRuntimeAdult
-      releaseDate={movieInitialData.release_date}
-      adult={movieInitialData.adult}
-      runtime={movie?.runtime}
-    />
+    <View className="self-center">
+      <MovieYearRuntimeAdult
+        releaseDate={movieInitialData.release_date}
+        adult={movieInitialData.adult}
+        runtime={movie?.runtime}
+      />
+    </View>
   </View>
 );

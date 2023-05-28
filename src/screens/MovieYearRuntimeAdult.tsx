@@ -9,11 +9,15 @@ const MovieYearRuntimeAdult = ({
   adult,
 }: {
   releaseDate: string;
-  runtime: number | undefined;
+  runtime?: number;
   adult: boolean;
 }) => (
-  <View className="flex flex-row gap-x-3 justify-center items-center">
-    <Text>{DateTime.fromISO(releaseDate).toFormat('yyyy')}</Text>
+  <View className="flex flex-row gap-x-3 items-center">
+    <Text>
+      {releaseDate.length
+        ? DateTime.fromISO(releaseDate).toFormat('yyyy')
+        : 'No release date'}
+    </Text>
     {runtime && <Text>{formatRuntime(runtime)}</Text>}
     {adult && <Text>{'For adults'}</Text>}
   </View>
