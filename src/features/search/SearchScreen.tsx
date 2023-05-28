@@ -4,12 +4,15 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 // import {Movie} from '@components/interfaces/IMovieApi';
 // import { useSearchMoviesQuery } from '@redux/api/hooks/moviesApiHooks';
-import {RootStackProps} from '@interfaces/INavigation';
+import {SearchStackProps} from '@interfaces/INavigation';
 import Theme from '@src/Theme';
 
-import HeaderBar from '../components/SearchScreen/HeaderBar';
+import HeaderBar from './components/HeaderBar';
 
-const Search = ({navigation, route}: RootStackProps<'Search'>) => {
+export const SearchScreen = ({
+  navigation,
+  route,
+}: SearchStackProps<'Search'>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [value, setValue] = useState('');
   // const onChangeText = (value: string): void => setValue(value);
@@ -41,7 +44,6 @@ const Search = ({navigation, route}: RootStackProps<'Search'>) => {
     </SafeAreaView>
   );
 };
-export default Search;
 
 // const SearchResults = (props: Movie) =>
 //   // if (props.results.length === 0) return <EmptyListText>We couldn&apos;t find anything for you</EmptyListText>;

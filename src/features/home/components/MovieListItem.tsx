@@ -6,7 +6,7 @@ import {MovieShort} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 import Theme from '@src/Theme';
 
-const MovieListItem = ({
+const MovieListItemBasic = ({
   item,
   onPressFunc,
 }: {
@@ -28,5 +28,4 @@ const MovieListItem = ({
   </View>
 );
 
-const Memo = memo(MovieListItem);
-export default Memo;
+export const MovieListItem = memo(MovieListItemBasic);

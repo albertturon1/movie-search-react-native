@@ -1,22 +1,21 @@
 import {useCallback, useState} from 'react';
 
-import {useNavigation} from '@react-navigation/native';
 import {FlatList, Text, View} from 'react-native';
 
-import MovieListItem from '@components/Homepage/MovieListItem';
 import LoadingIndicator from '@components/LoadingIndicator';
 import ScreenPadding from '@components/ScreenPadding';
 import {MovieShort} from '@interfaces/api/IMovieApi';
-import {RootStackProps} from '@interfaces/INavigation';
+import {HomeStackProps} from '@interfaces/INavigation';
 import {useTrendingMoviesQuery} from '@redux/api/hooks/moviesApiHooks';
 import {usePrefetch} from '@redux/api/rootApi';
+
+import {MovieListItem} from './components/MovieListItem';
 
 const keyExtractor = (item: MovieShort | null) =>
   item?.id.toString() ?? (Math.random() + 1).toString(36).substring(7);
 
-const Home = () => {
+export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
   const [page, setPage] = useState(1);
-  const navigation = useNavigation<RootStackProps<'Home'>['navigation']>();
 
   const {
     data: moviesData,
@@ -94,5 +93,3 @@ const Home = () => {
     </ScreenPadding>
   );
 };
-
-export default Home;
