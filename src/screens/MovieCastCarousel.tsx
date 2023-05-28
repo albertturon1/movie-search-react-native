@@ -1,15 +1,8 @@
-import {SetStateAction, useState} from 'react';
-
-import {
-  View,
-  useWindowDimensions,
-  Image,
-  ImageSourcePropType,
-} from 'react-native';
+import {View, useWindowDimensions, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import DefaultPerson from '@assets/images/default_person.png';
 import {MovieCast} from '@components/interfaces/IMovieAPi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
@@ -39,28 +32,26 @@ const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
   );
 };
 
-const Item = ({item}: {item: MovieCast}) => {
-  const [source, setSource] = useState<ImageSourcePropType>({
-    uri: getTMDBImagePath({path: item.profile_path, size: 'w154'}),
-  });
-
-  return (
-    <View className="h-full flex flex-col pr-1.5">
-      <View className="flex-1 object-contain max-h-full">
+const Item = ({item}: {item: MovieCast}) => (
+  <View className="h-full flex flex-col pr-1.5">
+    <View className="flex-1 object-contain max-h-full justify-center items-center">
+      {item.profile_path ? (
         <Image
-          source={source}
-          className="w-full h-full bg-muted"
-          onError={() => {
-            setSource(DefaultPerson as SetStateAction<ImageSourcePropType>);
+          source={{
+            uri: getTMDBImagePath({path: item.profile_path, size: 'w154'}),
           }}
+          className="w-full h-full bg-muted"
         />
-      </View>
-      <View className="h-[70px] flex flex-col mt-1">
-        <Text>{item.name}</Text>
-        <Text className="text-black/70">{item.character}</Text>
-      </View>
+      ) : (
+        <View className="bg-muted h-full w-full flex justify-center items-center">
+          <FontAwesome name="user-circle" size={100} />
+        </View>
+      )}
     </View>
-  );
-};
-
+    <View className="h-[70px] flex flex-col mt-1">
+      <Text>{item.name}</Text>
+      <Text className="text-black/70">{item.character}</Text>
+    </View>
+  </View>
+);
 export default MovieCastCarousel;
