@@ -72,7 +72,7 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
             )}
           </View>
           <View className="flex flex-row w-full">
-            <MoviePoster movieInitialData={movieInitialData} images={images} />
+            <MoviePoster movieInitialData={movieInitialData} />
             <View className="flex flex-1 mt-1 ml-2">
               {movie && <MovieGenres genres={movie.genres.slice(0, 3)} />}
               <Text className="leading-[23px] mt-1">{overview}</Text>
