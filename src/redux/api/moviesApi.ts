@@ -3,6 +3,7 @@ import {
   Movie,
   MovieCreditsResponse,
   MovieImagesResponse,
+  MovieRecommendationsResponse,
   MovieVideosResponse,
   MoviesResponse,
 } from '@components/interfaces/IMovieAPi';
@@ -31,6 +32,19 @@ export const MoviesApi = {
         url: `/movie/${id}/credits`,
       }),
     }),
+    movieRecommendations: builder.query<MovieRecommendationsResponse, number>({
+      query: (id: number) => ({
+        url: `/movie/${id}/recommendations`,
+      }),
+      merge: (currentCache, newItems) => {
+        currentCache.page = newItems.page;
+        currentCache.results.push(...newItems.results);
+      },
+      serializeQueryArgs: ({endpointName}) => endpointName,
+      forceRefetch({currentArg, previousArg}) {
+        return currentArg !== previousArg;
+      },
+    }),
     searchMovies: builder.query<MoviesResponse, string>({
       query: (name: string) => ({
         url: `/search/movie?&query=${name}&page=1`,
@@ -41,6 +55,7 @@ export const MoviesApi = {
         url: `/trending/movie/week?page=${pageNumber}`,
       }),
       merge: (currentCache, newItems) => {
+        currentCache.page = newItems.page;
         currentCache.results.push(...newItems.results);
       },
       serializeQueryArgs: ({endpointName}) => endpointName,
