@@ -10,12 +10,14 @@ import MoviePopularity from '@components/MoviePopularity';
 import ScreenPadding from '@components/ScreenPadding';
 import {Skeleton} from '@components/Skeleton';
 import {
+  useMovieCreditsQuery,
   useMovieImagesQuery,
   useMovieQuery,
   useMovieVideosQuery,
 } from '@redux/api/hooks/moviesApiHooks';
 
 import MovieBackdropImagesCarousel from './MovieBackdropImagesCarousel';
+import MovieCastCarousel from './MovieCastCarousel';
 import {MovieHeader} from './MovieHeader';
 import MoviePoster from './MoviePoster';
 import {RootStackProps} from '../navigation/INavigation';
@@ -27,6 +29,10 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
   const {data: videos, isLoading: isVideoLoading} = useMovieVideosQuery(
     movieInitialData.id,
   );
+  const {data: credits, isLoading: isCreditsLoading} = useMovieCreditsQuery(
+    movieInitialData.id,
+  );
+
   const trailerVideo = useMemo(() => {
     if (!videos || !videos.results.length) return;
     return videos.results
@@ -82,6 +88,18 @@ const Movie = ({route}: RootStackProps<'Movie'>) => {
               <Text className="text-[16px]">{`Original language: ${movieInitialData.original_language.toUpperCase()}`}</Text>
             </View>
           </View>
+          {(credits || isCreditsLoading) && (
+            <View className="w-full h-[255px]">
+              {credits ? (
+                <View className="flex flex-col mb-4">
+                  <Text className="text-lg font-bold mb-1">{'Cast'}</Text>
+                  <MovieCastCarousel cast={credits.cast} />
+                </View>
+              ) : (
+                <Skeleton styleClassName="w-full h-full" />
+              )}
+            </View>
+          )}
           {images && (
             <View className="flex flex-col mb-4">
               <Text className="text-lg font-bold -mb-2">{'Backdrops'}</Text>
