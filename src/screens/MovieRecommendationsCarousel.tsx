@@ -1,48 +1,55 @@
-import {View, Image} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {View, Pressable} from 'react-native';
 import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import {MovieCast} from '@components/interfaces/IMovieAPi';
-import {getTMDBImagePath} from '@src/lib/utils';
+import {MovieShort} from '@interfaces/api/IMovieApi';
+import {RootStackProps} from '@interfaces/INavigation';
 
 import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
+import MoviePoster from './MoviePoster';
+import MovieYearRuntimeAdult from './MovieYearRuntimeAdult';
 
-const MovieRecommendationsCarousel = ({cast}: {cast: MovieCast[]}) => {
+const MovieRecommendationsCarousel = ({
+  recommendations,
+}: {
+  recommendations: MovieShort[];
+}) => {
   const {carouselWidth, options} = useMovieCarouselOptions();
 
-  if (!cast || !cast.length) return null;
+  if (!recommendations || !recommendations.length) return null;
   return (
     <Carousel
       {...options}
       width={carouselWidth / 3.2}
-      height={220}
-      data={cast}
+      data={recommendations}
       renderItem={Item}
     />
   );
 };
 
-const Item = ({item}: {item: MovieCast}) => (
-  <View className="h-full flex flex-col pr-1.5">
-    <View className="flex-1 object-contain max-h-full justify-center items-center">
-      {item.profile_path ? (
-        <Image
-          source={{
-            uri: getTMDBImagePath({path: item.profile_path, size: 'w154'}),
-          }}
-          className="w-full h-full bg-muted"
-        />
-      ) : (
-        <View className="bg-muted h-full w-full flex justify-center items-center">
-          <FontAwesome name="user-circle" size={100} />
+const Item = ({item}: {item: MovieShort}) => {
+  const navigation = useNavigation<RootStackProps<'Movie'>['navigation']>();
+
+  return (
+    <Pressable
+      onPress={() => {
+        navigation.push('Movie', {
+          movie: item,
+        });
+      }}>
+      <View className="h-full flex flex-col pr-1.5">
+        <MoviePoster path={item.poster_path} />
+        <View className="h-[70px] flex flex-col mt-1 justify-between">
+          <Text numberOfLines={3}>{item.title}</Text>
+          <MovieYearRuntimeAdult
+            releaseDate={item.release_date}
+            adult={item.adult}
+          />
         </View>
-      )}
-    </View>
-    <View className="h-[70px] flex flex-col mt-1">
-      <Text>{item.name}</Text>
-      <Text className="text-black/70">{item.character}</Text>
-    </View>
-  </View>
-);
+      </View>
+    </Pressable>
+  );
+};
+
 export default MovieRecommendationsCarousel;
