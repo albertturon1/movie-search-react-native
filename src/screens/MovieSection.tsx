@@ -6,7 +6,7 @@ import {Text} from 'react-native-paper';
 import {Skeleton} from '@components/Skeleton';
 
 const MovieSection = <T,>({
-  isDataLoading,
+  isLoading,
   data,
   children,
   title,
@@ -14,15 +14,15 @@ const MovieSection = <T,>({
   titleClassName = '',
   skeletonClassName = '',
 }: {
-  data: T;
-  isDataLoading: boolean;
+  data?: T | undefined;
+  isLoading: boolean;
   children: (data: NonNullable<T>) => ReactNode;
   title?: string;
   containerClassName?: string;
   titleClassName?: string;
   skeletonClassName?: string;
 }) => {
-  if (!isDataLoading && !data) return null;
+  if (!isLoading && !data) return null;
   return (
     <View className={`w-full ${containerClassName}`}>
       {data ? (
