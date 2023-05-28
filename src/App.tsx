@@ -10,9 +10,10 @@ import SearchButton from '@components/Homepage/SearchButton';
 import {RootStackParamList} from '@interfaces/INavigation';
 import {store} from '@redux/store';
 import Home from '@screens/Home/Home';
-import Movie from '@screens/Movie';
 import Search from '@screens/Search';
 import Theme from '@src/Theme';
+
+import {MovieScreen} from './features/movie/MovieScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -34,7 +35,7 @@ const App = () => (
               <Stack.Screen name="Search" component={Search} />
               <Stack.Screen
                 name="Movie"
-                component={Movie}
+                component={MovieScreen}
                 options={{
                   headerShown: false,
                   animation: 'slide_from_right',

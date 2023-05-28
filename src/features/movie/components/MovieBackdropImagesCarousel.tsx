@@ -4,7 +4,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import {MovieImage} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
+import {useMovieCarouselOptions} from '../hooks/useMovieCarouselOptions';
 
 const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
   const {width} = useWindowDimensions();

@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {MovieCast} from '@interfaces/api/IMovieApi';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
+import {useMovieCarouselOptions} from '../hooks/useMovieCarouselOptions';
 
 const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
   const {carouselWidth, options} = useMovieCarouselOptions();

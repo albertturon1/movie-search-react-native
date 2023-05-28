@@ -6,9 +6,9 @@ import Carousel from 'react-native-reanimated-carousel';
 import {MovieShort} from '@interfaces/api/IMovieApi';
 import {RootStackProps} from '@interfaces/INavigation';
 
-import {useMovieCarouselOptions} from './Home/useMovieCarouselOptions';
 import MoviePoster from './MoviePoster';
 import MovieYearRuntimeAdult from './MovieYearRuntimeAdult';
+import {useMovieCarouselOptions} from '../hooks/useMovieCarouselOptions';
 
 const MovieRecommendationsCarousel = ({
   recommendations,
