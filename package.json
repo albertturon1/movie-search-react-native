@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "prettier": "npx prettier --write \"**/*.tsx\"",
     "test:ci": "npx eslint . --ext .js,.jsx,.ts,.tsx && jest --config ./jest.config.js --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false"
   },
