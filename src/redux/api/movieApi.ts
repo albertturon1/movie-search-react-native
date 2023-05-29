@@ -4,6 +4,7 @@ import {
   MovieRecommendationsResponse,
   MovieVideosResponse,
   MoviesResponse,
+  UpcomingMoviesResponse,
 } from '@interfaces/api/IMovieApi';
 import {Movie} from '@interfaces/models/IMovie';
 
@@ -43,6 +44,11 @@ export const MovieApi = {
       forceRefetch({currentArg, previousArg}) {
         return currentArg !== previousArg;
       },
+    }),
+    upcomingMovies: builder.query<UpcomingMoviesResponse, number>({
+      query: (pageNumber: number) => ({
+        url: `/movie/upcoming?page=${pageNumber}`,
+      }),
     }),
     searchMovies: builder.query<MoviesResponse, string>({
       query: (name: string) => ({

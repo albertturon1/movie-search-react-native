@@ -1,1 +1,2 @@
 export const SCREEN_HORIZONTAL_PADDING = 12;
+export const YOUTUBE_ASPECT_RATIO = 0.5625;
