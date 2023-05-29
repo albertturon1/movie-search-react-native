@@ -1,6 +1,5 @@
 import {useCallback, useState} from 'react';
 
-import {useNavigation} from '@react-navigation/native';
 import {FlatList, View} from 'react-native';
 import {Text} from 'react-native-paper';
 
@@ -8,41 +7,37 @@ import LoadingIndicator from '@components/LoadingIndicator';
 import {FilmListItem} from '@components/misc/FilmListItem';
 import ScreenPadding from '@components/ScreenPadding';
 import {HomeStackProps} from '@interfaces/INavigation';
-import {MovieShort} from '@interfaces/models/IMovie';
-import {useTrendingMoviesQuery} from '@redux/api/hooks/moviesApiHooks';
-import {useMoviePrefetch} from '@src/features/movie/hooks/useMoviePrefetch';
+import {TvShort} from '@interfaces/models/ITv';
+import {useTrendingTvQuery} from '@redux/api/hooks/tvApiHooks';
+import {useTvPrefetch} from '@src/features/tv/hooks/useTvPrefetch';
 
-const keyExtractor = (item: MovieShort | null) =>
+const keyExtractor = (item: TvShort | null) =>
   item?.id.toString() ?? (Math.random() + 1).toString(36).substring(7);
 
-export const MoviesTrendingScreen = () => {
-  const navigation = useNavigation<HomeStackProps<'Home'>['navigation']>();
+export const TvTrendingScreen = ({
+  navigation,
+}: HomeStackProps<'TvTrending'>) => {
   const [page, setPage] = useState(1);
 
-  const {
-    data: movies,
-    isLoading,
-    isFetching,
-    isError,
-  } = useTrendingMoviesQuery(page);
-  const listData = [...new Set(movies?.results)];
+  const {data: tv, isLoading, isFetching, isError} = useTrendingTvQuery(page);
+  const listData = [...new Set(tv?.results)];
 
-  const prefetchMovie = useMoviePrefetch();
+  const prefetchTv = useTvPrefetch();
 
   const renderItem = useCallback(
-    ({item}: {item: MovieShort | null}) => {
+    ({item}: {item: TvShort | null}) => {
       if (!item) return <View className="flex flex-1" />;
       return (
         <FilmListItem
           posterPath={item.poster_path}
           onPressFunc={() => {
-            prefetchMovie(item.id);
-            navigation.navigate('Movie', {movie: item});
+            prefetchTv(item.id);
+            navigation.navigate('Tv', {tv: item});
           }}
         />
       );
     },
-    [navigation, prefetchMovie],
+    [navigation, prefetchTv],
   );
 
   const ListFooterComponent = useCallback(
@@ -71,7 +66,7 @@ export const MoviesTrendingScreen = () => {
     );
 
   const remainder = listData.length % 3;
-  const moviesFilled =
+  const tvFilled =
     remainder % 3 === 0
       ? listData
       : listData.concat(Array(3 - remainder).fill(null));
@@ -79,7 +74,7 @@ export const MoviesTrendingScreen = () => {
   return (
     <ScreenPadding>
       <FlatList
-        data={moviesFilled}
+        data={tvFilled}
         bounces={false}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}

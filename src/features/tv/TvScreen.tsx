@@ -7,7 +7,7 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 
 import {TvCarousel} from '@components/FilmCarousel/TvCarousel';
 import {FilmBackdropImagesCarousel} from '@components/misc/FilmBackdropImagesCarousel';
-import FilmCastCarousel from '@components/misc/FilmCastCarousel';
+import {FilmCastCarousel} from '@components/misc/FilmCastCarousel';
 import {FilmGenres} from '@components/misc/FilmGenres';
 import {FilmHeader} from '@components/misc/FilmHeader';
 import {FilmPoster} from '@components/misc/FilmPoster';

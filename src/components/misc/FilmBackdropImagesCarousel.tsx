@@ -1,14 +1,13 @@
 import {View, useWindowDimensions, Image} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
+import {useFilmCarouselOptions} from '@hooks/useFilmCarouselOptions';
 import {FilmImage} from '@interfaces/models/IFilm';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-import {useMovieCarouselOptions} from '../../features/movie/hooks/useMovieCarouselOptions';
-
 export const FilmBackdropImagesCarousel = ({images}: {images: FilmImage[]}) => {
   const {width} = useWindowDimensions();
-  const {carouselWidth, options} = useMovieCarouselOptions();
+  const {carouselWidth, options} = useFilmCarouselOptions();
 
   if (!images || !images.length) return null;
   return (

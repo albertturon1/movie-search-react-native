@@ -9,6 +9,7 @@ import {
 
 import {env} from '@src/env';
 
+import {FilmApi} from './filmApi';
 import {MovieApi} from './movieApi';
 import {TvApi} from './tvApi';
 
@@ -50,6 +51,7 @@ export const RootApi = createApi({
   endpoints: _builder => ({}),
 })
   .injectEndpoints(MovieApi)
-  .injectEndpoints(TvApi);
+  .injectEndpoints(TvApi)
+  .injectEndpoints(FilmApi);
 
 export const usePrefetch = RootApi.usePrefetch.bind(RootApi);

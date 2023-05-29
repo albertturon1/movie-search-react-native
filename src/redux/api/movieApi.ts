@@ -5,7 +5,6 @@ import {
   MovieVideosResponse,
   MoviesResponse,
 } from '@interfaces/api/IMovieApi';
-import {GenresResponse} from '@interfaces/models/IFilm';
 import {Movie} from '@interfaces/models/IMovie';
 
 import {ApiEndpointBuilder} from './rootApi';
@@ -62,9 +61,6 @@ export const MovieApi = {
       forceRefetch({currentArg, previousArg}) {
         return currentArg !== previousArg;
       },
-    }),
-    genres: builder.query<GenresResponse, void>({
-      query: () => ({url: `/genre/movie/list`}),
     }),
   }),
 };

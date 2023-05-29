@@ -3,9 +3,9 @@ import {ScrollView, View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
-import {MoviesCarousel} from '@components/FilmCarousel/MovieCarousel';
+import {MoviesCarousel} from '@components/FilmCarousel/MoviesCarousel';
 import {FilmBackdropImagesCarousel} from '@components/misc/FilmBackdropImagesCarousel';
-import FilmCastCarousel from '@components/misc/FilmCastCarousel';
+import {FilmCastCarousel} from '@components/misc/FilmCastCarousel';
 import {FilmGenres} from '@components/misc/FilmGenres';
 import {FilmHeader} from '@components/misc/FilmHeader';
 import {FilmPoster} from '@components/misc/FilmPoster';

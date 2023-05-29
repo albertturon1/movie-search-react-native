@@ -2,7 +2,7 @@ import {useWindowDimensions} from 'react-native';
 
 import {SCREEN_HORIZONTAL_PADDING} from '@constants/Globals';
 
-export const useMovieCarouselOptions = () => {
+export const useFilmCarouselOptions = () => {
   const {width} = useWindowDimensions();
 
   const carouselWidth = width - 2 * SCREEN_HORIZONTAL_PADDING;
