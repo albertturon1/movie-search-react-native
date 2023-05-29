@@ -6,6 +6,7 @@ import {FilmPoster} from '@components/misc/FilmPoster';
 import {FilmYearRuntimeAdult} from '@components/misc/FilmYearRuntimeAdult';
 import {RootStackProps} from '@interfaces/INavigation';
 import {TvShort} from '@interfaces/models/ITv';
+import {useTvPrefetch} from '@src/features/tv/hooks/useTvPrefetch';
 
 import {FilmCarousel} from './FilmCarousel';
 
@@ -15,10 +16,12 @@ export const TvCarousel = ({movies}: {movies: TvShort[]}) => (
 
 export const TvCarouselItem = ({item}: {item: TvShort}) => {
   const navigation = useNavigation<RootStackProps<'Movie'>['navigation']>();
+  const prefetchTv = useTvPrefetch();
 
   return (
     <Pressable
       onPress={() => {
+        prefetchTv(item.id);
         navigation.push('Tv', {
           tv: item,
         });

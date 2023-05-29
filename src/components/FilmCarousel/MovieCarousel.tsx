@@ -6,6 +6,7 @@ import {FilmPoster} from '@components/misc/FilmPoster';
 import {FilmYearRuntimeAdult} from '@components/misc/FilmYearRuntimeAdult';
 import {RootStackProps} from '@interfaces/INavigation';
 import {MovieShort} from '@interfaces/models/IMovie';
+import {useMoviePrefetch} from '@src/features/movie/hooks/useMoviePrefetch';
 import {getReleaseDateFormated} from '@src/lib/utils';
 
 import {FilmCarousel} from './FilmCarousel';
@@ -16,10 +17,12 @@ export const MoviesCarousel = ({movies}: {movies: MovieShort[]}) => (
 
 export const MovieCarouselItem = ({item}: {item: MovieShort}) => {
   const navigation = useNavigation<RootStackProps<'Movie'>['navigation']>();
+  const prefetchMovie = useMoviePrefetch();
 
   return (
     <Pressable
       onPress={() => {
+        prefetchMovie(item.id);
         navigation.push('Movie', {
           movie: item,
         });
