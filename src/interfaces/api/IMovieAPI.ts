@@ -23,3 +23,9 @@ export type MovieCreditsResponse = {
 };
 
 export type MovieRecommendationsResponse = PaginatedData<MovieShort>;
+export type UpcomingMoviesResponse = PaginatedData<MovieShort> & {
+  dates: {
+    maximum: string;
+    minimum: string;
+  };
+};

@@ -8,18 +8,41 @@ import {HomeStackProps} from '@interfaces/INavigation';
 import {
   useTrendingMoviesQuery,
   useTrendingTvQuery,
+  useUpcomingMoviesQuery,
 } from '@redux/api/hooks/moviesApiHooks';
+import Theme from '@src/Theme';
 
+import {HomeUpcomingCarousel} from '../components/HomeUpcomingCarousel';
 import SectionHeader from '../components/SectionHeader';
 
 export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
-  const trendingMovies = useTrendingMoviesQuery(1);
-  const trendingTvSerieses = useTrendingTvQuery(1);
+  const trendingMoviesQuery = useTrendingMoviesQuery(1);
+  const trendingTvSeriesQuery = useTrendingTvQuery(1);
+  const upcomingMoviesQuery = useUpcomingMoviesQuery(1);
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={Theme.styles.flexOne}>
       <View style={styles.container}>
-        <FilmSection {...trendingMovies} containerClassName="h-[275px]">
+        <FilmSection {...upcomingMoviesQuery}>
+          {data => (
+            <View className="flex flex-col gap-y-2 bg-black rounded-b-md">
+              <View className="border-b border-border pb-2">
+                <HomeUpcomingCarousel movies={data.results} />
+              </View>
+              <View className="pt-1 pb-2">
+                <SectionHeader
+                  titleClassName="text-2xl"
+                  title="Upcoming movies"
+                  buttonTitle="All"
+                  onButtonPress={() => {
+                    // navigation.navigate('UpcomingMovies')
+                  }}
+                />
+              </View>
+            </View>
+          )}
+        </FilmSection>
+        <FilmSection {...trendingMoviesQuery} containerClassName="h-[275px]">
           {data => (
             <>
               <SectionHeader
@@ -37,7 +60,7 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
             </>
           )}
         </FilmSection>
-        <FilmSection {...trendingTvSerieses} containerClassName="h-[245px]">
+        <FilmSection {...trendingTvSeriesQuery} containerClassName="h-[245px]">
           {data => (
             <>
               <SectionHeader
@@ -59,5 +82,9 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
 };
 
 const styles = StyleSheet.create({
-  container: {rowGap: 20},
+  container: {
+    rowGap: 20,
+    width: '100%',
+    height: '100%',
+  },
 });
