@@ -1,43 +1,59 @@
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Text} from 'react-native-paper';
 
 import {MoviesCarousel} from '@components/FilmCarousel/MovieCarousel';
 import {TvCarousel} from '@components/FilmCarousel/TvCarousel';
 import {FilmSection} from '@components/misc/FilmSection';
 import ScreenPadding from '@components/ScreenPadding';
+import {HomeStackProps} from '@interfaces/INavigation';
 import {
   useTrendingMoviesQuery,
   useTrendingTvQuery,
 } from '@redux/api/hooks/moviesApiHooks';
 
-export const HomeScreen = () => {
+import SectionHeader from '../components/SectionHeader';
+
+export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
   const trendingMovies = useTrendingMoviesQuery(1);
   const trendingTvSerieses = useTrendingTvQuery(1);
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainerStyle}>
-      <ScreenPadding>
-        <View style={styles.container}>
-          <FilmSection {...trendingMovies} containerClassName="h-[215px]">
-            {data => (
-              <>
-                <Text className="text-xl font-bold mb-2">
-                  {'Trending movies'}
-                </Text>
-                <MoviesCarousel movies={data.results} />
-              </>
-            )}
-          </FilmSection>
-          <FilmSection {...trendingTvSerieses} containerClassName="h-[215px]">
-            {data => (
-              <>
-                <Text className="text-xl font-bold mb-2">{'Trending Tv'}</Text>
+      <View style={styles.container}>
+        <FilmSection {...trendingMovies} containerClassName="h-[215px]">
+          {data => (
+            <>
+              <SectionHeader
+                title="Trending movies"
+                buttonTitle="All"
+                onButtonPress={() => {
+                  navigation.navigate('MoviesTrending');
+                }}
+              />
+              <ScreenPadding flex={false}>
+                <View className="w-full">
+                  <MoviesCarousel movies={data.results} />
+                </View>
+              </ScreenPadding>
+            </>
+          )}
+        </FilmSection>
+        <FilmSection {...trendingTvSerieses} containerClassName="h-[215px]">
+          {data => (
+            <>
+              <SectionHeader
+                title="Trending TV"
+                buttonTitle="All"
+                onButtonPress={() => {
+                  navigation.navigate('MoviesTrending');
+                }}
+              />
+              <ScreenPadding flex={false}>
                 <TvCarousel movies={data.results} />
-              </>
-            )}
-          </FilmSection>
-        </View>
-      </ScreenPadding>
+              </ScreenPadding>
+            </>
+          )}
+        </FilmSection>
+      </View>
     </ScrollView>
   );
 };
