@@ -4,7 +4,7 @@ import {ImagePathSize, getTMDBImagePath} from '@src/lib/utils';
 
 const DEFAULT_POSTER_ASPECT_RATIO = 0.667;
 
-const MoviePoster = ({
+export const FilmPoster = ({
   path,
   size,
   aspectRatio = DEFAULT_POSTER_ASPECT_RATIO,
@@ -33,5 +33,3 @@ const MoviePoster = ({
     )}
   </View>
 );
-
-export default MoviePoster;

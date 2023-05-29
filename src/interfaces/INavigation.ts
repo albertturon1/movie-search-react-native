@@ -5,7 +5,8 @@ import {
 } from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {MovieShort} from '@interfaces/api/IMovieApi';
+import {MovieShort} from './models/IMovie';
+import {TvShort} from './models/ITv';
 
 export type RootStackProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>;
@@ -13,10 +14,12 @@ export type RootStackProps<T extends keyof RootStackParamList> =
 export type RootStackParamList = {
   AppBottomTab: NavigatorScreenParams<AppBottomTabParamList>;
   Movie: {movie: MovieShort};
+  Tv: {tv: TvShort};
 };
 
 export type HomeStackParamList = {
   Home: undefined;
+  MoviesTrending: undefined;
 };
 
 export type HomeStackProps<T extends keyof HomeStackParamList> =

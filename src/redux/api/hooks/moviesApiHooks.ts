@@ -8,5 +8,6 @@ export const {
   useMovieVideosQuery,
   useSearchMoviesQuery,
   useTrendingMoviesQuery,
+  useTrendingTvQuery,
   useGenresQuery,
 } = RootApi;

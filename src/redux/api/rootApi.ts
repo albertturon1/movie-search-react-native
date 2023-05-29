@@ -9,7 +9,8 @@ import {
 
 import {env} from '@src/env';
 
-import {MoviesApi} from './moviesApi';
+import {MovieApi} from './movieApi';
+import {TvApi} from './tvApi';
 
 export type TagType = (typeof tagTypes)[number];
 export type ReducerPath = typeof reducerPath;
@@ -45,7 +46,10 @@ const baseQueryWithErrorHandling: BaseQuery = async (args, api, extraOptions) =>
 export const RootApi = createApi({
   reducerPath,
   baseQuery: baseQueryWithErrorHandling,
+  keepUnusedDataFor: 180,
   endpoints: _builder => ({}),
-}).injectEndpoints(MoviesApi);
+})
+  .injectEndpoints(MovieApi)
+  .injectEndpoints(TvApi);
 
 export const usePrefetch = RootApi.usePrefetch.bind(RootApi);

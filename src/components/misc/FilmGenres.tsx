@@ -1,9 +1,9 @@
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 
-import {Genre} from '@interfaces/api/IMovieApi';
+import {Genre} from '@interfaces/models/IFilm';
 
-const MovieGenres = ({genres}: {genres: Genre[]}) => (
+export const FilmGenres = ({genres}: {genres: Genre[]}) => (
   <View className="flex flex-row items-center gap-1.5 w-full flex-wrap">
     {genres.map(genre => (
       <View
@@ -14,5 +14,3 @@ const MovieGenres = ({genres}: {genres: Genre[]}) => (
     ))}
   </View>
 );
-
-export default MovieGenres;

@@ -5,7 +5,7 @@ import {Text} from 'react-native-paper';
 
 import {Skeleton} from '@components/Skeleton';
 
-const MovieSection = <T,>({
+export const FilmSection = <T,>({
   isLoading,
   data,
   children,
@@ -40,5 +40,3 @@ const MovieSection = <T,>({
     </View>
   );
 };
-
-export default MovieSection;
