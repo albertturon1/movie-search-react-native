@@ -10,10 +10,15 @@ const HomeStackNavigator = () => (
   <HomeStack.Navigator
     screenOptions={{
       headerShown: false,
+      animation: 'slide_from_right',
     }}
     initialRouteName="Home">
     <HomeStack.Screen name="Home" component={HomeScreen} />
-    <HomeStack.Screen name="MoviesTrending" component={MoviesTrendingScreen} />
+    <HomeStack.Screen
+      name="MoviesTrending"
+      component={MoviesTrendingScreen}
+      options={{headerShown: true}}
+    />
   </HomeStack.Navigator>
 );
 
