@@ -3,12 +3,11 @@ import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import {MovieCast} from '@interfaces/api/IMovieApi';
+import {Cast} from '@interfaces/models/IFilm';
+import {useMovieCarouselOptions} from '@src/features/movie/hooks/useMovieCarouselOptions';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-import {useMovieCarouselOptions} from '../hooks/useMovieCarouselOptions';
-
-const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
+export const FilmCastCarousel = ({cast}: {cast: Cast[]}) => {
   const {carouselWidth, options} = useMovieCarouselOptions();
 
   if (!cast || !cast.length) return null;
@@ -23,7 +22,7 @@ const MovieCastCarousel = ({cast}: {cast: MovieCast[]}) => {
   );
 };
 
-const Item = ({item}: {item: MovieCast}) => (
+const Item = ({item}: {item: Cast}) => (
   <View className="h-full flex flex-col pr-1.5">
     <View className="flex-1 object-contain max-h-full justify-center items-center">
       {item.profile_path ? (
@@ -46,4 +45,4 @@ const Item = ({item}: {item: MovieCast}) => (
   </View>
 );
 
-export default MovieCastCarousel;
+export default FilmCastCarousel;

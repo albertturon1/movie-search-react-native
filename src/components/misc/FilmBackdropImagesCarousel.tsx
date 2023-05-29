@@ -1,12 +1,12 @@
 import {View, useWindowDimensions, Image} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
-import {MovieImage} from '@interfaces/api/IMovieApi';
+import {FilmImage} from '@interfaces/models/IFilm';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-import {useMovieCarouselOptions} from '../hooks/useMovieCarouselOptions';
+import {useMovieCarouselOptions} from '../../features/movie/hooks/useMovieCarouselOptions';
 
-const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
+export const FilmBackdropImagesCarousel = ({images}: {images: FilmImage[]}) => {
   const {width} = useWindowDimensions();
   const {carouselWidth, options} = useMovieCarouselOptions();
 
@@ -24,7 +24,7 @@ const MovieBackdropImagesCarousel = ({images}: {images: MovieImage[]}) => {
   );
 };
 
-const Item = ({item}: {item: MovieImage}) => (
+const Item = ({item}: {item: FilmImage}) => (
   <View className="w-full" style={{aspectRatio: item.aspect_ratio}}>
     <Image
       source={{
@@ -34,5 +34,3 @@ const Item = ({item}: {item: MovieImage}) => (
     />
   </View>
 );
-
-export default MovieBackdropImagesCarousel;

@@ -1,16 +1,16 @@
 import {
-  GenresResponse,
-  Movie,
   MovieCreditsResponse,
   MovieImagesResponse,
   MovieRecommendationsResponse,
   MovieVideosResponse,
   MoviesResponse,
 } from '@interfaces/api/IMovieApi';
+import {GenresResponse} from '@interfaces/models/IFilm';
+import {Movie} from '@interfaces/models/IMovie';
 
 import {ApiEndpointBuilder} from './rootApi';
 
-export const MoviesApi = {
+export const MovieApi = {
   endpoints: (builder: ApiEndpointBuilder) => ({
     movie: builder.query<Movie, number>({
       query: (id: number) => ({

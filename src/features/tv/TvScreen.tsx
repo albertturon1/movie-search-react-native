@@ -1,9 +1,11 @@
+import {useMemo} from 'react';
+
 import {DateTime} from 'luxon';
 import {ScrollView, View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
-import {MoviesCarousel} from '@components/FilmCarousel/MovieCarousel';
+import {TvCarousel} from '@components/FilmCarousel/TvCarousel';
 import {FilmBackdropImagesCarousel} from '@components/misc/FilmBackdropImagesCarousel';
 import FilmCastCarousel from '@components/misc/FilmCastCarousel';
 import {FilmGenres} from '@components/misc/FilmGenres';
@@ -16,46 +18,55 @@ import useFilmRecommendations from '@hooks/useFilmRecommendations';
 import {useFilmTrailerSource} from '@hooks/useFilmTrailerSource';
 import {RootStackProps} from '@interfaces/INavigation';
 import {
-  useMovieQuery,
-  useMovieImagesQuery,
-  useMovieVideosQuery,
-  useMovieCreditsQuery,
-  useMovieRecommendationsQuery,
-} from '@redux/api/hooks/moviesApiHooks';
-import {getFilmOverview, getReleaseDateFormated} from '@src/lib/utils';
+  useTvCreditsQuery,
+  useTvImagesQuery,
+  useTvQuery,
+  useTvRecommendationsQuery,
+  useTvVideosQuery,
+} from '@redux/api/hooks/tvApiHooks';
+import {getFilmOverview, getTvAirtimeFormated} from '@src/lib/utils';
 
-export const MovieScreen = ({route}: RootStackProps<'Movie'>) => {
-  const {movie: movieInitialData} = route.params;
-  const {data: movie} = useMovieQuery(movieInitialData.id);
-  const imagesQuery = useMovieImagesQuery(movieInitialData.id);
-  const {data: videos, isLoading: isVideoLoading} = useMovieVideosQuery(
-    movieInitialData.id,
+export const TvScreen = ({route}: RootStackProps<'Tv'>) => {
+  const {tv: tvInitialData} = route.params;
+  const {data: tv} = useTvQuery(tvInitialData.id);
+  const imagesQuery = useTvImagesQuery(tvInitialData.id);
+  const {data: videos, isLoading: isVideoLoading} = useTvVideosQuery(
+    tvInitialData.id,
   );
-  const creditsQuery = useMovieCreditsQuery(movieInitialData.id);
-  const recommendationsQuery = useMovieRecommendationsQuery(
-    movieInitialData.id,
+  const recommendationsQuery = useTvRecommendationsQuery(tvInitialData.id);
+  const creditsQuery = useTvCreditsQuery(tvInitialData.id);
+
+  const averageEpisodeRuntime = useMemo(
+    // eslint-disable-next-line no-param-reassign
+    () => tv?.episode_run_time.reduce((acc, item) => (acc += item), 0),
+    [tv?.episode_run_time],
   );
 
-  const overview = getFilmOverview(movieInitialData.overview);
   const trailerVideo = useFilmTrailerSource(videos?.results);
-  const sortedRecommendations = useFilmRecommendations({
-    data: recommendationsQuery?.data?.results,
-    selectedFilmID: movieInitialData.id,
-  });
 
   const releaseDate =
-    !!movieInitialData.release_date.length &&
-    DateTime.fromISO(movieInitialData.release_date).toFormat('dd MMMM, yyyy');
+    !!tvInitialData.first_air_date &&
+    DateTime.fromISO(tvInitialData.first_air_date).toFormat('dd MMMM, yyyy');
+
+  const sortedRecommendations = useFilmRecommendations({
+    data: recommendationsQuery?.data?.results,
+    selectedFilmID: tvInitialData.id,
+  });
+
+  const overview = getFilmOverview(tvInitialData.overview);
+  const airtime = tv
+    ? getTvAirtimeFormated(tv.first_air_date, tv?.last_air_date)
+    : '';
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainerStyle}>
       <ScreenPadding>
         <View style={styles.container}>
           <FilmHeader
-            releaseDate={getReleaseDateFormated(movieInitialData.release_date)}
-            runtime={movie?.runtime}
-            adult={movieInitialData.adult}
-            name={movieInitialData.title}
+            releaseDate={airtime}
+            runtime={averageEpisodeRuntime}
+            adult={tvInitialData.adult}
+            name={tvInitialData.name}
           />
           <FilmSection
             data={trailerVideo}
@@ -66,25 +77,25 @@ export const MovieScreen = ({route}: RootStackProps<'Movie'>) => {
           <View className="flex flex-row w-full">
             <View className="flex flex-row min-w-[120px] w-[30%] max-w-[300px] overflow-hidden">
               <FilmPoster
-                path={movieInitialData.poster_path}
+                path={tvInitialData.poster_path}
                 containerClassName="w-full h-full"
               />
             </View>
             <View className="flex flex-1 mt-1 ml-2">
-              {movie && <FilmGenres genres={movie.genres.slice(0, 3)} />}
+              {tv && <FilmGenres genres={tv.genres.slice(0, 3)} />}
               <Text className="leading-[23px] mt-1">{overview}</Text>
             </View>
           </View>
           <View>
             <MoviePopularity
-              voteCount={movieInitialData.vote_count}
-              voteAverage={movieInitialData.vote_average}
+              voteCount={tvInitialData.vote_count}
+              voteAverage={tvInitialData.vote_average}
             />
             <View className="flex flex-col gap-y-0.5 mb-2">
               {releaseDate && (
                 <Text className="text-[16px] text-secondaryBlack">{`Release date: ${releaseDate}`}</Text>
               )}
-              <Text className="text-[16px]">{`Original language: ${movieInitialData.original_language.toUpperCase()}`}</Text>
+              <Text className="text-[16px]">{`Original language: ${tvInitialData.original_language.toUpperCase()}`}</Text>
             </View>
           </View>
           <View style={styles.sectionsWrapper}>
@@ -105,7 +116,7 @@ export const MovieScreen = ({route}: RootStackProps<'Movie'>) => {
               title="Recommendations"
               {...recommendationsQuery}
               skeletonClassName="h-[270px]">
-              {() => <MoviesCarousel movies={sortedRecommendations} />}
+              {() => <TvCarousel movies={sortedRecommendations} />}
             </FilmSection>
           </View>
         </View>
