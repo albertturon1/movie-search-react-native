@@ -41,7 +41,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: latest
       - run: yarn prettier
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
