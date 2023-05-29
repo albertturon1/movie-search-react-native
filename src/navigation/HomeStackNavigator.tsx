@@ -4,6 +4,7 @@ import {HomeStackParamList} from '@interfaces/INavigation';
 import {HomeScreen} from '@src/features/home/screens/HomeScreen';
 import {MoviesTrendingScreen} from '@src/features/home/screens/MoviesTrendingScreen';
 import {TvTrendingScreen} from '@src/features/home/screens/TvTrendingScreen';
+import {UpcomingMoviesScreen} from '@src/features/home/screens/UpcomingMoviesScreen';
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 
@@ -12,6 +13,7 @@ const HomeStackNavigator = () => (
     screenOptions={{
       headerShown: false,
       animation: 'slide_from_right',
+      headerTitleAlign: 'center',
     }}
     initialRouteName="Home">
     <HomeStack.Screen name="Home" component={HomeScreen} />
@@ -21,7 +23,6 @@ const HomeStackNavigator = () => (
       options={{
         headerShown: true,
         title: 'Trending movies',
-        headerTitleAlign: 'center',
       }}
     />
     <HomeStack.Screen
@@ -30,7 +31,14 @@ const HomeStackNavigator = () => (
       options={{
         headerShown: true,
         title: 'Trending TV Series',
-        headerTitleAlign: 'center',
+      }}
+    />
+    <HomeStack.Screen
+      name="UpcomingMovies"
+      component={UpcomingMoviesScreen}
+      options={{
+        headerShown: true,
+        title: 'Upcoming movies',
       }}
     />
   </HomeStack.Navigator>

@@ -5,6 +5,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/typescript/types';
 
 import {YOUTUBE_ASPECT_RATIO} from '@constants/Globals';
+import {useFilmCarouselOptions} from '@hooks/useFilmCarouselOptions';
 import {MovieShort} from '@interfaces/models/IMovie';
 
 import {HomeUpcomingCarousellItem} from './HomeUpcomingCarouselItem';
@@ -14,6 +15,8 @@ const POSTER_HEIGHT = 120;
 
 export const HomeUpcomingCarousel = ({movies}: {movies: MovieShort[]}) => {
   const {width} = useWindowDimensions();
+  const {options} = useFilmCarouselOptions();
+
   const [autoPlay, setAutoPlay] = useState(false);
 
   const slicedMovies = movies.slice(0, NUM_OF_UPCOMING_MOVIES);
@@ -55,6 +58,7 @@ export const HomeUpcomingCarousel = ({movies}: {movies: MovieShort[]}) => {
       windowSize={NUM_OF_UPCOMING_MOVIES}
       renderItem={renderItem}
       height={carouselHeight}
+      panGestureHandlerProps={options.panGestureHandlerProps}
     />
   );
 };
