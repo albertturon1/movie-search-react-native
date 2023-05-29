@@ -46,9 +46,17 @@ export const MovieApi = {
       },
     }),
     upcomingMovies: builder.query<UpcomingMoviesResponse, number>({
-      query: (pageNumber: number) => ({
+      query: (pageNumber = 1) => ({
         url: `/movie/upcoming?page=${pageNumber}`,
       }),
+      merge: (currentCache, newItems) => {
+        currentCache.page = newItems.page;
+        currentCache.results.push(...newItems.results);
+      },
+      serializeQueryArgs: ({endpointName}) => endpointName,
+      forceRefetch({currentArg, previousArg}) {
+        return currentArg !== previousArg;
+      },
     }),
     searchMovies: builder.query<MoviesResponse, string>({
       query: (name: string) => ({
