@@ -1,3 +1,5 @@
+import {memo} from 'react';
+
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
@@ -7,7 +9,7 @@ import {useFilmCarouselOptions} from '@hooks/useFilmCarouselOptions';
 import {Cast} from '@interfaces/models/IFilm';
 import {getTMDBImagePath} from '@src/lib/utils';
 
-export const FilmCastCarousel = ({cast}: {cast: Cast[]}) => {
+const FilmCastCarouselBase = ({cast}: {cast: Cast[]}) => {
   const {carouselWidth, options} = useFilmCarouselOptions();
 
   if (!cast || !cast.length) return null;
@@ -40,10 +42,12 @@ const Item = ({item}: {item: Cast}) => (
       )}
     </View>
     <View className="h-[70px] flex flex-col mt-1 justify-between">
-      <Text>{item.name}</Text>
-      <Text className="text-black/70">{item.character}</Text>
+      <Text numberOfLines={2}>{item.name}</Text>
+      <Text numberOfLines={2} className="text-black/70">
+        {item.character}
+      </Text>
     </View>
   </View>
 );
 
-export default FilmCastCarousel;
+export const FilmCastCarousel = memo(FilmCastCarouselBase);
