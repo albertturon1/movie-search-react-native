@@ -9,5 +9,4 @@ export const {
   useSearchMoviesQuery,
   useTrendingMoviesQuery,
   useTrendingTvQuery,
-  useGenresQuery,
 } = RootApi;
