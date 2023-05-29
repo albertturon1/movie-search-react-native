@@ -21,6 +21,7 @@ export type HomeStackParamList = {
   Home: undefined;
   MoviesTrending: undefined;
   TvTrending: undefined;
+  UpcomingMovies: undefined;
 };
 
 export type HomeStackProps<T extends keyof HomeStackParamList> =

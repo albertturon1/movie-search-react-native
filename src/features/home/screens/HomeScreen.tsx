@@ -10,7 +10,6 @@ import {
   useTrendingTvQuery,
   useUpcomingMoviesQuery,
 } from '@redux/api/hooks/moviesApiHooks';
-import Theme from '@src/Theme';
 
 import {HomeUpcomingCarousel} from '../components/HomeUpcomingCarousel';
 import SectionHeader from '../components/SectionHeader';
@@ -21,7 +20,7 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
   const upcomingMoviesQuery = useUpcomingMoviesQuery(1);
 
   return (
-    <ScrollView contentContainerStyle={Theme.styles.flexOne}>
+    <ScrollView>
       <View style={styles.container}>
         <FilmSection {...upcomingMoviesQuery}>
           {data => (
@@ -35,7 +34,7 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
                   title="Upcoming movies"
                   buttonTitle="All"
                   onButtonPress={() => {
-                    // navigation.navigate('UpcomingMovies')
+                    navigation.navigate('UpcomingMovies');
                   }}
                 />
               </View>
