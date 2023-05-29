@@ -3,12 +3,12 @@ import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import {useFilmCarouselOptions} from '@hooks/useFilmCarouselOptions';
 import {Cast} from '@interfaces/models/IFilm';
-import {useMovieCarouselOptions} from '@src/features/movie/hooks/useMovieCarouselOptions';
 import {getTMDBImagePath} from '@src/lib/utils';
 
 export const FilmCastCarousel = ({cast}: {cast: Cast[]}) => {
-  const {carouselWidth, options} = useMovieCarouselOptions();
+  const {carouselWidth, options} = useFilmCarouselOptions();
 
   if (!cast || !cast.length) return null;
   return (
