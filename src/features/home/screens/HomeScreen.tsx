@@ -1,6 +1,6 @@
 import {View, StyleSheet, ScrollView} from 'react-native';
 
-import {MoviesCarousel} from '@components/FilmCarousel/MovieCarousel';
+import {MoviesCarousel} from '@components/FilmCarousel/MoviesCarousel';
 import {TvCarousel} from '@components/FilmCarousel/TvCarousel';
 import {FilmSection} from '@components/misc/FilmSection';
 import ScreenPadding from '@components/ScreenPadding';
@@ -17,9 +17,9 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
   const trendingTvSerieses = useTrendingTvQuery(1);
 
   return (
-    <ScrollView contentContainerStyle={styles.contentContainerStyle}>
+    <ScrollView>
       <View style={styles.container}>
-        <FilmSection {...trendingMovies} containerClassName="h-[215px]">
+        <FilmSection {...trendingMovies} containerClassName="h-[275px]">
           {data => (
             <>
               <SectionHeader
@@ -37,11 +37,11 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
             </>
           )}
         </FilmSection>
-        <FilmSection {...trendingTvSerieses} containerClassName="h-[215px]">
+        <FilmSection {...trendingTvSerieses} containerClassName="h-[245px]">
           {data => (
             <>
               <SectionHeader
-                title="Trending TV"
+                title="Trending TV Series"
                 buttonTitle="All"
                 onButtonPress={() => {
                   navigation.navigate('TvTrending');
@@ -59,9 +59,5 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
 };
 
 const styles = StyleSheet.create({
-  contentContainerStyle: {paddingBottom: 100},
-  container: {
-    rowGap: 100,
-    paddingTop: 12,
-  },
+  container: {rowGap: 20},
 });
