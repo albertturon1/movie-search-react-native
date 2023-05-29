@@ -44,7 +44,7 @@ export const HomeScreen = ({navigation}: HomeStackProps<'Home'>) => {
                 title="Trending TV"
                 buttonTitle="All"
                 onButtonPress={() => {
-                  navigation.navigate('MoviesTrending');
+                  navigation.navigate('TvTrending');
                 }}
               />
               <ScreenPadding flex={false}>
