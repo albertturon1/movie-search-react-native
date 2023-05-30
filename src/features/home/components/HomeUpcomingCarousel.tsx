@@ -8,7 +8,7 @@ import {YOUTUBE_ASPECT_RATIO} from '@constants/Globals';
 import {useFilmCarouselOptions} from '@hooks/useFilmCarouselOptions';
 import {MovieShort} from '@interfaces/models/IMovie';
 
-import {HomeUpcomingCarousellItem} from './HomeUpcomingCarouselItem';
+import {HomeUpcomingCarouselItem} from './HomeUpcomingCarouselItem';
 
 const NUM_OF_UPCOMING_MOVIES = 10;
 const POSTER_HEIGHT = 120;
@@ -36,7 +36,7 @@ export const HomeUpcomingCarousel = ({movies}: {movies: MovieShort[]}) => {
 
   const renderItem = useCallback(
     (movieItem: CarouselRenderItemInfo<MovieShort>) => (
-      <HomeUpcomingCarousellItem
+      <HomeUpcomingCarouselItem
         item={movieItem.item}
         onReady={onFirstMovieReadySetAutplay}
         posterHeight={POSTER_HEIGHT}
