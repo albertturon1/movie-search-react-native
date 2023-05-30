@@ -103,3 +103,17 @@ export type Crew = {
   department: string;
   job: string;
 };
+
+export type FilmCore = {
+  id: number;
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: string[];
+  media_type: string;
+  original_language: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+};

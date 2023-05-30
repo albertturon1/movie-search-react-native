@@ -1,5 +1,6 @@
 import {
   Collection,
+  FilmCore,
   Genre,
   ProductionCompany,
   ProductionCountry,
@@ -7,22 +8,11 @@ import {
 } from '../models/IFilm';
 
 export type MovieShort = {
-  id: number;
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  media_type: string;
-  original_language: string;
   original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
   release_date: string;
   title: string;
   video: boolean;
-  vote_average: number;
-  vote_count: number;
-};
+} & FilmCore;
 
 export type Movie = {
   belongs_to_collection: Collection;
